@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  <spnOverrides>
+    <spnOverride numeric="MccMnc value" spn="defualt spn" />
+    <spnOverride numeric="MccMnc value" spn="defualt spn, can be omitted">
+      <spn locale="java.util.Locale string">localized spn</spn>
+      <spn locale="java.util.Locale string">localized spn</spn>
+      ...
+    </spnOverride>
+    ...
+  </spnOverrides>
+-->
+<spnOverrides>
+  <!-- Japan -->
+  <spnOverride numeric="44020" spn="SoftBank" />
+  <!-- Hong Kong -->
+  <spnOverride numeric="45406" spn="SmarTone" />
+  <spnOverride numeric="45412">
+    <spn locale="zh">......</spn>
+    <spn locale="zh_CN">......</spn>
+  </spnOverride>
+  <!-- China -->
+  <spnOverride numeric="46000">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46001">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46002">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46003">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46007">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <!-- Taiwan -->
+  <spnOverride numeric="46601">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46688">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46689">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46692">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46693">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+  <spnOverride numeric="46697">
+    <spn locale="zh">.....</spn>
+  </spnOverride>
+  <spnOverride numeric="46699">
+    <spn locale="zh">....</spn>
+  </spnOverride>
+</spnOverrides>

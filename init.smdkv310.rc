@@ -1,0 +1,406 @@
+import init.smdkv310.usb.rc
+
+on early-init
+	export EXTERNAL_STORAGE /mnt/sdcard
+    mkdir /mnt 0775 system system
+    mkdir /mnt/sdcard 0775 system system
+    mkdir /mnt/extsdcard 0775 system system
+
+    # for backwards compatibility
+    symlink /mnt/sdcard /sdcard
+    symlink /mnt/external /sdcard
+   
+    # Disable CFQ slice idle delay
+    write /sys/block/mmcblk0/queue/iosched/slice_idle 0
+
+    write /proc/sys/kernel/panic_on_oops 1
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+    write /proc/cpu/alignment 4
+    write /proc/sys/kernel/sched_latency_ns 10000000
+    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
+    write /proc/sys/kernel/sched_compat_yield 1
+    write /proc/sys/kernel/sched_child_runs_first 0
+
+	# Create cgroup mount points for process groups
+	mkdir /dev/cpuctl
+    mount cgroup none /dev/cpuctl cpu
+    chown system system /dev/cpuctl
+    chown system system /dev/cpuctl/tasks
+    chmod 0777 /dev/cpuctl/tasks
+    write /dev/cpuctl/cpu.shares 1024
+	
+	mkdir /dev/cpuctl/fg_boost
+    chown system system /dev/cpuctl/fg_boost/tasks
+    chmod 0777 /dev/cpuctl/fg_boost/tasks
+    write /dev/cpuctl/fg_boost/cpu.shares 1024
+
+    mkdir /dev/cpuctl/bg_non_interactive
+    chown system system /dev/cpuctl/bg_non_interactive/tasks
+    chmod 0777 /dev/cpuctl/bg_non_interactive/tasks
+    # 5.0 %
+    write /dev/cpuctl/bg_non_interactive/cpu.shares 52
+	
+    # insmod all kernel modules
+    insmod /lib/modules/vibrator.ko
+    insmod /lib/modules/bthid.ko
+    insmod /lib/modules/Si4709_driver.ko
+
+on post-fs-data
+    # to eliminate delay of "wait_for_coldboot_done", move these 2 lines here
+    insmod /lib/modules/j4fs.ko
+    mount j4fs /dev/block/mmcblk0p4 /mnt/.lfs
+
+	# we will remap this as /mnt/sdcard with the sdcard fuse tool
+	mkdir /data/media 0775 media_rw media_rw
+	chown media_rw media_rw /data/media
+	mkdir /data/misc/wifi 0770 wifi wifi
+	mkdir /data/misc/wifi/sockets 0770 wifi wifi
+	mkdir /data/misc/dhcp 0770 dhcp dhcp
+	chown dhcp dhcp /data/misc/dhcp
+	mkdir /data/smc 0770 drmrpc drmrpc
+    chown drmrpc drmrpc /data/smc/counter.bin
+    chown drmrpc drmrpc /data/smc/storage.bin
+    chown drmrpc drmrpc /data/smc/system.bin
+	
+	setprop vold.post_fs_data_done 1
+
+on boot
+	mount debugfs /sys/kernel/debug /sys/kernel/debug
+
+on fs
+    # Mount /system rw first to give the filesystem a chance to save a checkpoint
+    mount ext4 /dev/block/mmcblk0p9 /system wait ro
+    mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev noatime wait
+    mount ext4 /dev/block/mmcblk0p10 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,journal_checksum
+
+	# SAMSUNG specific /data stuff
+	chown system system /data
+    chmod 0771 /data
+    mkdir /data/dbdata
+    chown system system /data/dbdata
+    chmod 0771 /data/dbdata
+    mkdir /dbdata
+    symlink /data/dbdata /dbdata
+    chown system system /dbdata
+    chmod 0771 /dbdata
+    mkdir /dbdata/databases
+    chown system system /dbdata/databases
+    chmod 0777 /dbdata/databases
+    mkdir /dbdata/system
+    chown system system /dbdata/system
+    chmod 0775 /dbdata/system
+	
+    mkdir /efs
+    mount ext4 /dev/block/mmcblk0p1 /efs nosuid nodev noatime wait
+    chown radio system /efs
+    chmod 0771 /efs
+
+    # create log system
+    mkdir /data/log 0777 system system
+    chmod 0777 /data/log
+    chmod 0777 /data/anr
+    chmod 0662 /dev/log/radio
+    chmod 0662 /dev/log/main
+    chmod 0662 /dev/log/event
+
+    # permissions for backlight
+    chown system system /sys/class/backlight/pwm-backlight/brightness
+	chown radio radio /sys/class/backlight/pwm-backlight/device/acl_set
+	chown radio radio /sys/class/backlight/pwm-backlight/device/lcdtype
+    chown radio radio /sys/class/backlight/pwm-backlight/device/lcd_power
+	
+    # create data/gps for GPS demon
+    chown root system /dev/s3c2410_serial1
+    chmod 0660 /dev/s3c2410_serial1
+    
+    chown root system /sys/class/sec/gps/GPS_PWR_EN/value
+    chmod 0664 /sys/class/sec/gps/GPS_PWR_EN/value
+    
+    chown root system /sys/class/sec/gps/GPS_nRST/value
+    chmod 0664 /sys/class/sec/gps/GPS_nRST/value
+
+    mkdir /data/gps 771 system system
+    chown system system /data/gps
+
+    # allow net_raw to have access to /dev/socket directory
+    chown root net_raw /dev/socket
+    chmod 0775 /dev/socket
+
+	# Create dump dir and collect dumps.
+    # Do this before we mount cache so eventually we can use cache for
+    # storing dumps on platforms which do not have a dedicated dump partition.
+    mkdir /data/dontpanic
+    chown root log /data/dontpanic
+    chmod 0750 /data/dontpanic
+	
+	# Collect apanic data, free resources and re-arm trigger
+    copy /proc/apanic_console /data/dontpanic/apanic_console
+    chown root log /data/dontpanic/apanic_console
+    chmod 0640 /data/dontpanic/apanic_console
+
+    copy /proc/apanic_threads /data/dontpanic/apanic_threads
+    chown root log /data/dontpanic/apanic_threads
+    chmod 0640 /data/dontpanic/apanic_threads
+
+    write /proc/apanic_console 1
+	
+	# Same reason as /data above
+    chown system cache /cache
+    chmod 0770 /cache
+
+    # Browser. Same reason as /data above
+    chown system inet /app-cache
+    chmod 0770 /app-cache
+	
+	# This may have been created by the recovery system with odd permissions
+    chown system cache /cache/recovery
+    chmod 0775 /cache/recovery
+
+    #change permissions on vmallocinfo so we can grab it from bugreports
+    chown root log /proc/vmallocinfo
+    chmod 0440 /proc/vmallocinfo
+	
+	#change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
+    chown root system /proc/kmsg
+    chmod 0440 /proc/kmsg
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+	
+    # UART switch
+    # Request of manufacturing application!!!
+    chown radio system /sys/class/sec/uart_switch/UART_SEL/value
+    chmod 0664 /sys/class/sec/uart_switch/UART_SEL/value
+
+    # MTP permissions
+    chmod 0660 /dev/usb_mtp_gadget
+    chown system system /dev/usb_mtp_gadget
+
+    # allow system to modify cpufreq control files
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    # USB Device permission
+    chown system system /sys/devices/platform/android_usb/UsbMenuSel
+    chown system system /sys/devices/platform/android_usb/tethering
+
+    # setup for alsa snd device
+    symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
+    symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
+    symlink /dev/snd/controlC0 /dev/controlC0
+    symlink /dev/snd/timer /dev/timer
+    symlink /dev/snd/hwC0D0 /dev/hwC0D0
+    chmod 0777 /dev/pcmC0D0c
+    chmod 0777 /dev/pcmC0D0p
+    chmod 0777 /dev/controlC0
+    chmod 0777 /dev/timer
+    chmod 0777 /dev/hwC0D0
+    chmod 0777 /dev/snd/pcmC0D0c
+    chmod 0777 /dev/snd/pcmC0D0p
+    chmod 0777 /dev/snd/controlC0
+    chmod 0777 /dev/snd/timer
+    chmod 0777 /dev/snd/hwC0D0
+
+    # Permissions for gpio_keys
+    chown radio system /sys/devices/platform/sec_key.0/wakeup_keys 
+    write /sys/devices/platform/sec_key.0/wakeup_keys  102,116
+
+    # mDNIe
+    chown radio system /sys/devices/virtual/mdnieset_outdoor/switch_mdnieset_outdoor/mdnieset_outdoor_file_cmd
+    chown radio system /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_init_file_cmd
+    chown radio system /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_user_select_file_cmd
+    chown radio system /sys/devices/virtual/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd
+    write /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_init_file_cmd 0
+    write /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_ui_file_cmd 0
+    write /sys/class/mdnieset_ui/switch_mdnieset_ui/mdnieset_user_select_file_cmd 1
+
+    # Add permission for ATM.
+    chown radio system /sys/devices/virtual/K3G_GYRO-dev/k3g/gyro_selftest
+    chown radio system /sys/devices/virtual/K3G_GYRO-dev/k3g/gyro_get_temp
+    chown radio system /sys/devices/virtual/K3G_GYRO-dev/k3g/gyro_power_on
+    chown radio system /sys/devices/virtual/accelerometer/accelerometer/acc_file
+    chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_sensitivity
+    chown radio system /sys/devices/virtual/sec/gsensorcal/calibration
+    chown radio system /sys/devices/virtual/jack/jack_selector/select_jack
+    chown radio system /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/lcd_power
+    chown radio system /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/octa_lcdtype
+    chown radio system /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/lcdtype
+    chown radio radio /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/acl_set
+    chown radio radio /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/gamma_table
+    chown radio radio /sys/devices/platform/samsung-pd.2/s3cfb.0/spi_gpio.3/spi3.0/gamma_mode
+    chown radio system /sys/devices/virtual/misc/melfas_touchkey/enable_disable
+    chown radio system /sys/devices/virtual/misc/melfas_touchkey/brightness
+    chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_update
+    chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_version
+    chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_panel
+    chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_phone
+    chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update_status
+    chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_firm_version
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_threshould
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_all_refer
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta4
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer4
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta3
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer3
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta2
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer2
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta1
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer1
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_delta0
+    chown radio system /sys/devices/virtual/sec/qt602240_noise_test/set_refer0
+    chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_panel
+    chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
+    chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update_status
+    chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update
+    chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
+    chown radio system /sys/devices/platform/s5p-ehci/ehci_runtime
+    chown radio system /sys/devices/platform/modemctl/wakeup
+    chown radio system /sys/devices/platform/modemctl/control
+    chown radio system /sys/devices/platform/android_usb/tethering
+    chown radio system /sys/devices/platform/android_usb/UsbMenuSel
+    chown radio system /sys/devices/virtual/sec/switch/disable_vbus
+    chown radio system /sys/devices/virtual/gpio/gpio225/value
+    chown radio system /sys/devices/platform/i2c-gpio.9/i2c-9/9-0036/power_supply/fuelgauge/fg_read_soc
+    chown radio system /sys/devices/platform/i2c-gpio.9/i2c-9/9-0036/power_supply/fuelgauge/fg_reset_soc
+    chown radio system /sys/devices/platform/s3c2410-i2c.5/i2c-5/5-0066/max8997-muic/usb_sel
+    chown radio system /sys/devices/platform/s3c2410-i2c.5/i2c-5/5-0066/max8997-muic/audio_path
+    chown radio system /sys/devices/platform/s3c2410-i2c.5/i2c-5/5-0066/max8997-muic/otg_test
+    chown radio system /sys/devices/platform/s3c2410-i2c.5/i2c-5/5-0066/max8997-muic/adc_debounce_time
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_lpm_state
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/fg_psoc
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/system_rev
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_current_adc
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_test_value
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_temp_adc_spec
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_temp_check
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_full_check
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_type
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/mp3
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/video
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_lp_charging
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/charging_source
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_temp_adc_avg
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_temp_adc
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_temp
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_vfocv
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_soc
+    chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_vol
+    chown radio system /sys/devices/platform/s5p-ehci/ehci_power
+    chown radio system /sys/devices/virtual/net/svnet0/waketime
+	chown radio system /sys/devices/virtual/misc/melfas_touchkey/enable_disable 
+	chown radio system /sys/devices/virtual/misc/melfas_touchkey/brightness
+	chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_update
+	chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_version
+	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_panel
+	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_phone
+	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update_status
+	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_firm_version
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_threshould
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta4
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer4
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta3
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer3
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta2
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer2
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta1
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer1
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta0
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer0
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_module_on
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_module_off
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_all_refer
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/disp_all_refdata
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_all_delta
+	chown radio system /sys/devices/virtual/sec/tsp_noise_test/disp_all_deltadata
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_panel
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update_status 
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update 
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
+	chown radio system /sys/devices/virtual/sec/sec_touchscreen/mxt_touchtype
+	
+     #for jack control
+    chown radio system /sys/class/jack/jack_selector/select_jack
+
+    #bluetooth
+    chown bluetooth bluetooth /dev/s3c2410_serial0
+    chmod 0660 /dev/s3c2410_serial0
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
+
+    # for datarouter
+    chown system system /dev/ttyGS0
+    chown system system /dev/dun
+
+    # Audio Tunning Files
+	chmod 0777 /system/etc/audio/stream_speaker.txt
+	chmod 0777 /system/etc/audio/stream_headset.txt
+	chmod 0777 /system/etc/audio/stream_earpiece.txt
+	chmod 0777 /system/etc/audio/situation.txt
+	chmod 0777 /system/etc/audio/aeqcoe.txt
+	chmod 0777 /system/etc/audio/soundbooster.txt
+	chmod 0777 /system/etc/audio/srstunning.txt
+	chmod 0777 /system/etc/audio/ArkamysTuning.txt
+
+	chmod 666 /dev/accelerometer
+    chmod 666 /dev/akm8975
+	
+# create virtual SD card at /mnt/sdcard, based on the /data/media directory
+# daemon will drop to user/group system/media_rw after initializing
+# underlying files in /data/media will be created with user and group media_rw (1023)
+#service sdcard /system/bin/sdcard /data/media 1023 1023
+#    class late_start
+
+# wi-fi
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+    class main
+    socket wpa_eth0 dgram 0660 wifi wifi
+    disabled
+    oneshot
+
+# hciattach
+service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_lpm --enable_hci --baudrate 3000000 --patchram /system/bin/BCM4330B1_002.001.003.0485.0501.hcd /dev/s3c2410_serial0 --no2bytes --tosleep=50000
+    class main
+    user bluetooth
+    group bluetooth net_bt_admin
+    disabled
+    oneshot
+
+# bluetooth mac address
+service bdaddr /system/bin/bdaddr_read
+    class main
+    user root
+    disabled
+    oneshot
+
+# tvout
+service tvout /system/bin/tvoutserver
+    class main
+    user system
+    group graphics
+
+# bugreport is triggered by holding down volume down, volume up and power
+service bugreport /system/bin/bugmailer.sh -v
+    class main
+	disabled
+	oneshot
+	keycodes 114 115 116

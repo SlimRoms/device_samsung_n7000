@@ -1,0 +1,2 @@
+require board=c1
+require version-bootloader=N7000XXKK5
