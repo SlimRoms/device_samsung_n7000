@@ -30,6 +30,12 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/apns-conf.xml:system/etc/apns-conf.xml \
 	device/samsung/galaxynote/configs/spn-conf.xml:system/etc/spn-conf.xml
+
+# Audio
+# soundbooster.txt - needs to be at /data/soundbooster.txt
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf \
+	device/samsung/galaxynote/configs/soundbooster.txt:system/etc/audio/soundbooster.txt
 	
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -74,8 +80,10 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
     audio.primary.smdkv310 \
+    audio_policy.smdkv310 \
     gps.smdkv310 \
-	com.android.future.usb.accessory
+    smdkv310_hdcp_keys \
+    com.android.future.usb.accessory
 
 # Charger
 #PRODUCT_PACKAGES += \
@@ -105,8 +113,13 @@ PRODUCT_PACKAGES += \
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
+	Galaxy4 \
+	HoloSpiralWallpaper \
 	LiveWallpapers \
 	LiveWallpapersPicker \
+	MagicSmokeWallpapers \
+	NoiseField \
+	PhaseBeam \
 	VisualizationWallpapers \
 	librs_jni
 
@@ -129,9 +142,7 @@ PRODUCT_COPY_FILES += \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.opengles.version=131072
-
-PRODUCT_PROPERTY_OVERRIDES += \
+	ro.opengles.version=131072 \
 	ro.sf.lcd_density=284 \
 	hwui.render_dirty_regions=false \
     hwui.disable_vsync=true

@@ -14,7 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),note)
+ifeq ($(TARGET_DEVICE),galaxynote)
 
 ifneq ($(TARGET_SIMULATOR),true)
 include $(call all-makefiles-under,$(LOCAL_PATH))

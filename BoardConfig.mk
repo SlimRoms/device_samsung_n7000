@@ -34,7 +34,6 @@ TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
-TARGET_OTA_ASSERT_DEVICE := galaxynote,GT-N7000
 
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
@@ -48,7 +47,6 @@ TARGET_PREBUILT_KERNEL := device/samsung/galaxynote/kernel
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_USES_MMCUTILS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 893386752
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2147483648
@@ -116,9 +114,13 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxynote/vibrator/ts
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxynote/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxynote/recovery/graphics.c
 BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxynote/shbootimg.mk
+# assert
+TARGET_OTA_ASSERT_DEVICE := galaxynote,GT-N7000
 
--include device/samsung/galaxynote/BoardConfigVendor.mk
+-include vendor/samsung/galaxynote/BoardConfigVendor.mk
+
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxynote/shbootimg.mk
