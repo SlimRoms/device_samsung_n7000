@@ -121,6 +121,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 # assert
 TARGET_OTA_ASSERT_DEVICE := galaxynote,GT-N7000
 
+# Use the non-open-source parts, if they're present
 -include vendor/samsung/galaxynote/BoardConfigVendor.mk
 
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxynote/shbootimg.mk

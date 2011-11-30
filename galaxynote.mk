@@ -54,7 +54,7 @@ PRODUCT_COPY_FILES += \
 	
 # Vold
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab \
+	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
 	
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
