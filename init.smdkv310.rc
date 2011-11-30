@@ -5,11 +5,12 @@ on early-init
     mkdir /mnt 0775 system system
     mkdir /mnt/sdcard 0775 system system
     mkdir /mnt/extsdcard 0775 system system
+    mkdir /mnt/usbdisk 0775 system system
 
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
-    symlink /mnt/external /sdcard
-   
+	# for backwards compatibility
+	symlink /mnt/sdcard /sdcard
+	symlink /mnt/external /sdcard
+
     # Disable CFQ slice idle delay
     write /sys/block/mmcblk0/queue/iosched/slice_idle 0
 
@@ -21,28 +22,13 @@ on early-init
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
 
-	# Create cgroup mount points for process groups
-	mkdir /dev/cpuctl
-    mount cgroup none /dev/cpuctl cpu
-    chown system system /dev/cpuctl
-    chown system system /dev/cpuctl/tasks
-    chmod 0777 /dev/cpuctl/tasks
-    write /dev/cpuctl/cpu.shares 1024
-	
-	mkdir /dev/cpuctl/fg_boost
-    chown system system /dev/cpuctl/fg_boost/tasks
-    chmod 0777 /dev/cpuctl/fg_boost/tasks
-    write /dev/cpuctl/fg_boost/cpu.shares 1024
-
-    mkdir /dev/cpuctl/bg_non_interactive
-    chown system system /dev/cpuctl/bg_non_interactive/tasks
-    chmod 0777 /dev/cpuctl/bg_non_interactive/tasks
-    # 5.0 %
-    write /dev/cpuctl/bg_non_interactive/cpu.shares 52
-	
-    # insmod all kernel modules
+# ko files for vibrator
     insmod /lib/modules/vibrator.ko
+
+# ko files for bthid
     insmod /lib/modules/bthid.ko
+
+# ko files for FM Radio
     insmod /lib/modules/Si4709_driver.ko
 
 on post-fs-data
@@ -61,7 +47,7 @@ on post-fs-data
     chown drmrpc drmrpc /data/smc/counter.bin
     chown drmrpc drmrpc /data/smc/storage.bin
     chown drmrpc drmrpc /data/smc/system.bin
-	
+
 	setprop vold.post_fs_data_done 1
 
 on boot
@@ -71,25 +57,8 @@ on fs
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
     mount ext4 /dev/block/mmcblk0p9 /system wait ro
     mount ext4 /dev/block/mmcblk0p7 /cache nosuid nodev noatime wait
-    mount ext4 /dev/block/mmcblk0p10 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc,journal_checksum
+    mount ext4 /dev/block/mmcblk0p10 /data nosuid nodev noatime wait crypt discard,noauto_da_alloc
 
-	# SAMSUNG specific /data stuff
-	chown system system /data
-    chmod 0771 /data
-    mkdir /data/dbdata
-    chown system system /data/dbdata
-    chmod 0771 /data/dbdata
-    mkdir /dbdata
-    symlink /data/dbdata /dbdata
-    chown system system /dbdata
-    chmod 0771 /dbdata
-    mkdir /dbdata/databases
-    chown system system /dbdata/databases
-    chmod 0777 /dbdata/databases
-    mkdir /dbdata/system
-    chown system system /dbdata/system
-    chmod 0775 /dbdata/system
-	
     mkdir /efs
     mount ext4 /dev/block/mmcblk0p1 /efs nosuid nodev noatime wait
     chown radio system /efs
@@ -97,18 +66,17 @@ on fs
 
     # create log system
     mkdir /data/log 0777 system system
+
     chmod 0777 /data/log
     chmod 0777 /data/anr
+    
     chmod 0662 /dev/log/radio
     chmod 0662 /dev/log/main
     chmod 0662 /dev/log/event
 
     # permissions for backlight
     chown system system /sys/class/backlight/pwm-backlight/brightness
-	chown radio radio /sys/class/backlight/pwm-backlight/device/acl_set
-	chown radio radio /sys/class/backlight/pwm-backlight/device/lcdtype
-    chown radio radio /sys/class/backlight/pwm-backlight/device/lcd_power
-	
+
     # create data/gps for GPS demon
     chown root system /dev/s3c2410_serial1
     chmod 0660 /dev/s3c2410_serial1
@@ -126,46 +94,6 @@ on fs
     chown root net_raw /dev/socket
     chmod 0775 /dev/socket
 
-	# Create dump dir and collect dumps.
-    # Do this before we mount cache so eventually we can use cache for
-    # storing dumps on platforms which do not have a dedicated dump partition.
-    mkdir /data/dontpanic
-    chown root log /data/dontpanic
-    chmod 0750 /data/dontpanic
-	
-	# Collect apanic data, free resources and re-arm trigger
-    copy /proc/apanic_console /data/dontpanic/apanic_console
-    chown root log /data/dontpanic/apanic_console
-    chmod 0640 /data/dontpanic/apanic_console
-
-    copy /proc/apanic_threads /data/dontpanic/apanic_threads
-    chown root log /data/dontpanic/apanic_threads
-    chmod 0640 /data/dontpanic/apanic_threads
-
-    write /proc/apanic_console 1
-	
-	# Same reason as /data above
-    chown system cache /cache
-    chmod 0770 /cache
-
-    # Browser. Same reason as /data above
-    chown system inet /app-cache
-    chmod 0770 /app-cache
-	
-	# This may have been created by the recovery system with odd permissions
-    chown system cache /cache/recovery
-    chmod 0775 /cache/recovery
-
-    #change permissions on vmallocinfo so we can grab it from bugreports
-    chown root log /proc/vmallocinfo
-    chmod 0440 /proc/vmallocinfo
-	
-	#change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
-    chown root system /proc/kmsg
-    chmod 0440 /proc/kmsg
-    chown root system /proc/sysrq-trigger
-    chmod 0220 /proc/sysrq-trigger
-	
     # UART switch
     # Request of manufacturing application!!!
     chown radio system /sys/class/sec/uart_switch/UART_SEL/value
@@ -188,25 +116,15 @@ on fs
     chown system system /sys/devices/platform/android_usb/tethering
 
     # setup for alsa snd device
-    symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
-    symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
-    symlink /dev/snd/controlC0 /dev/controlC0
-    symlink /dev/snd/timer /dev/timer
-    symlink /dev/snd/hwC0D0 /dev/hwC0D0
-    chmod 0777 /dev/pcmC0D0c
-    chmod 0777 /dev/pcmC0D0p
-    chmod 0777 /dev/controlC0
-    chmod 0777 /dev/timer
-    chmod 0777 /dev/hwC0D0
-    chmod 0777 /dev/snd/pcmC0D0c
-    chmod 0777 /dev/snd/pcmC0D0p
-    chmod 0777 /dev/snd/controlC0
-    chmod 0777 /dev/snd/timer
-    chmod 0777 /dev/snd/hwC0D0
+    chmod 0770 /dev/snd/pcmC0D0c
+    chmod 0770 /dev/snd/pcmC0D0p
+    chmod 0770 /dev/snd/controlC0
+    chmod 0770 /dev/snd/timer
+    chmod 0770 /dev/snd/hwC0D0
 
     # Permissions for gpio_keys
-    chown radio system /sys/devices/platform/sec_key.0/wakeup_keys 
-    write /sys/devices/platform/sec_key.0/wakeup_keys  102,116
+    chown radio system /sys/devices/platform/sec_key.0/disabled_keys
+    write /sys/devices/platform/sec_key.0/disabled_keys 114,115
 
     # mDNIe
     chown radio system /sys/devices/virtual/mdnieset_outdoor/switch_mdnieset_outdoor/mdnieset_outdoor_file_cmd
@@ -291,39 +209,7 @@ on fs
     chown radio system /sys/devices/platform/sec-battery/power_supply/battery/batt_vol
     chown radio system /sys/devices/platform/s5p-ehci/ehci_power
     chown radio system /sys/devices/virtual/net/svnet0/waketime
-	chown radio system /sys/devices/virtual/misc/melfas_touchkey/enable_disable 
-	chown radio system /sys/devices/virtual/misc/melfas_touchkey/brightness
-	chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_update
-	chown radio system /sys/devices/virtual/misc/melfas_touchkey/touch_version
-	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_panel
-	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_version_phone
-	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update_status
-	chown radio system /sys/devices/virtual/sec/sec_touchkey/touchkey_firm_update
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_firm_version
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_threshould
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta4
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer4
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta3
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer3
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta2
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer2
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta1
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer1
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_delta0
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_refer0
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_module_on
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_module_off
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_all_refer
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/disp_all_refdata
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/set_all_delta
-	chown radio system /sys/devices/virtual/sec/tsp_noise_test/disp_all_deltadata
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_panel
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_version_phone
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update_status 
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_firm_update 
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/tsp_threshold
-	chown radio system /sys/devices/virtual/sec/sec_touchscreen/mxt_touchtype
-	
+
      #for jack control
     chown radio system /sys/class/jack/jack_selector/select_jack
 
@@ -342,23 +228,14 @@ on fs
     chown system system /dev/dun
 
     # Audio Tunning Files
-	chmod 0777 /system/etc/audio/stream_speaker.txt
-	chmod 0777 /system/etc/audio/stream_headset.txt
-	chmod 0777 /system/etc/audio/stream_earpiece.txt
-	chmod 0777 /system/etc/audio/situation.txt
-	chmod 0777 /system/etc/audio/aeqcoe.txt
-	chmod 0777 /system/etc/audio/soundbooster.txt
-	chmod 0777 /system/etc/audio/srstunning.txt
-	chmod 0777 /system/etc/audio/ArkamysTuning.txt
-
-	chmod 666 /dev/accelerometer
-    chmod 666 /dev/akm8975
-	
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-#service sdcard /system/bin/sdcard /data/media 1023 1023
-#    class late_start
+    chmod 0777 /system/etc/audio/stream_speaker.txt
+    chmod 0777 /system/etc/audio/stream_headset.txt
+    chmod 0777 /system/etc/audio/stream_earpiece.txt
+    chmod 0777 /system/etc/audio/situation.txt
+    chmod 0777 /system/etc/audio/aeqcoe.txt
+    chmod 0777 /system/etc/audio/soundbooster.txt
+    chmod 0777 /system/etc/audio/srstunning.txt
+    chmod 0777 /system/etc/audio/ArkamysTuning.txt
 
 # wi-fi
 service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
@@ -378,7 +255,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wif
     oneshot
 
 # hciattach
-service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_lpm --enable_hci --baudrate 3000000 --patchram /system/bin/BCM4330B1_002.001.003.0485.0501.hcd /dev/s3c2410_serial0 --no2bytes --tosleep=50000
+service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_lpm --enable_hci --baudrate 3000000 --patchram /system/bin/BCM4330B1_002.001.003.0221.0265.hcd /dev/s3c2410_serial0 --no2bytes --tosleep=50000
     class main
     user bluetooth
     group bluetooth net_bt_admin

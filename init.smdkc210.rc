@@ -1,1 +1,2 @@
-# samsung messed up their device naming, move along!
+# samsung messed up at naming their board. we've fixed it.
+# use this fake file so that rommanager still recognizes our device correctly.
