@@ -32,6 +32,11 @@ LOCAL_SHARED_LIBRARIES += libdl
 
 LOCAL_SHARED_LIBRARIES += libaudio
 
+ifeq ($(BOARD_FORCE_STATIC_A2DP),true)
+  LOCAL_SHARED_LIBRARIES += liba2dp
+endif
+
+
 LOCAL_STATIC_LIBRARIES := \
     libmedia_helper
 
@@ -42,6 +47,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
+ifeq (1,1) ## COMMENT OUT AUDIOPOLICY
 LOCAL_SRC_FILES := \
     AudioPolicyManagerBase.cpp \
     AudioPolicyCompatClient.cpp \
@@ -95,4 +101,5 @@ endif
 
 include $(BUILD_SHARED_LIBRARY)
 
+endif ## AUDIOPOLICY
 endif

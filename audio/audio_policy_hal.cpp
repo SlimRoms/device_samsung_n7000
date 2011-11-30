@@ -24,7 +24,7 @@
 #include <system/audio_policy.h>
 #include <hardware/audio_policy.h>
 
-#include <hardware_legacy/AudioPolicyInterface.h>
+#include <AudioPolicyInterface.h>
 #include <hardware_legacy/AudioSystemLegacy.h>
 
 #include "AudioPolicyCompatClient.h"
@@ -144,7 +144,7 @@ static audio_io_handle_t ap_get_output(struct audio_policy *pol,
 
     LOGV("%s: tid %d", __func__, gettid());
     return lap->apm->getOutput((AudioSystem::stream_type)stream,
-                               sampling_rate, format, channels,
+                               sampling_rate, format, channels << 2,
                                (AudioSystem::output_flags)flags);
 }
 
@@ -152,6 +152,7 @@ static int ap_start_output(struct audio_policy *pol, audio_io_handle_t output,
                            audio_stream_type_t stream, int session)
 {
     struct legacy_audio_policy *lap = to_lap(pol);
+    LOGV("%s: tid %d", __func__, gettid());
     return lap->apm->startOutput(output, (AudioSystem::stream_type)stream,
                                  session);
 }

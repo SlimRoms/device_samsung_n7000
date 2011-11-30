@@ -133,6 +133,8 @@ public:
     // retreive current volume index for the specified stream
     virtual status_t getStreamVolumeIndex(AudioSystem::stream_type stream, int *index) = 0;
 
+    virtual status_t dummyA(int) { return 0; };
+
     // return the strategy corresponding to a given stream type
     virtual uint32_t getStrategyForStream(AudioSystem::stream_type stream) = 0;
 

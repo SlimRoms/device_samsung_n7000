@@ -56,7 +56,7 @@ status_t AudioPolicyManagerBase::setEffectEnabled(int id, bool enabled)
 {
     ssize_t index = mEffects.indexOfKey(id);
     if (index < 0) {
-        LOGW("unregisterEffect() unknown effect ID %d", id);
+        LOGW("setEffectEnabled() unknown effect ID %d", id);
         return INVALID_OPERATION;
     }
 
@@ -79,7 +79,7 @@ bool AudioPolicyManagerBase::isStreamActive(int stream, uint32_t inPastMs) const
 
 status_t AudioPolicyManagerBase::initCheck()
 {
-    return (mHardwareOutput == 0) ? NO_INIT : NO_ERROR;
+    return NO_ERROR;
 }
 
 uint32_t AudioPolicyManagerBase::getDevicesForStream(AudioSystem::stream_type stream) {
@@ -87,6 +87,7 @@ uint32_t AudioPolicyManagerBase::getDevicesForStream(AudioSystem::stream_type st
     // By checking the range of stream before calling getStrategy, we avoid
     // getStrategy's behavior for invalid streams.  getStrategy would do a LOGE
     // and then return STRATEGY_MEDIA, but we want to return the empty set.
+
     if (stream < (AudioSystem::stream_type) 0 || stream >= AudioSystem::NUM_STREAM_TYPES) {
         devices = 0;
     } else {
@@ -95,7 +96,6 @@ uint32_t AudioPolicyManagerBase::getDevicesForStream(AudioSystem::stream_type st
     }
     return devices;
 }
-
 
 
 }; // namespace android
