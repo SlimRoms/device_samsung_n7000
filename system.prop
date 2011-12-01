@@ -1,5 +1,5 @@
 #
-# system.prop for note
+# system.prop for galaxynote
 #
 
 rild.libpath=/system/lib/libsec-ril.so
