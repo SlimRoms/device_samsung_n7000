@@ -103,7 +103,7 @@ PRODUCT_PACKAGES += \
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=samsung \
-    ro.telephony.ril.v3=1 \
+    ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
     mobiledata.interfaces=pdp0,eth0,gprs,ppp0
 
 # Filesystem management tools
@@ -112,6 +112,10 @@ PRODUCT_PACKAGES += \
 	make_ext4fs \
 	setup_fs
 
+# Bluetooth MAC Address
+PRODUCT_PACKAGES += \
+	bdaddr_read
+	
 # Live Wallpapers
 PRODUCT_PACKAGES += \
 	Galaxy4 \
