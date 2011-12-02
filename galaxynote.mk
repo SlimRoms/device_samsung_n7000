@@ -14,7 +14,7 @@
 DEVICE_PACKAGE_OVERLAYS := device/samsung/galaxynote/overlay
 
 # This device is hdpi.
-PRODUCT_AAPT_CONFIG := normal xhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_LOCALES += xhdpi
 
@@ -39,7 +39,9 @@ PRODUCT_COPY_FILES += \
 	
 # Touchscreen
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc
+	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc \
+	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_touchscreen.idc \
+	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_e-pen.idc \
 
 # Keylayout
 PRODUCT_COPY_FILES += \
@@ -79,8 +81,8 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-    audio.primary.smdkv310 \
-    gps.smdkv310 \
+	audio.primary.smdkv310 \
+	gps.smdkv310 \
     smdkv310_hdcp_keys \
     com.android.future.usb.accessory
 
@@ -142,7 +144,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=131072 \
-	ro.sf.lcd_density=284 \
+	ro.sf.lcd_density=320 \
 	hwui.render_dirty_regions=false \
     hwui.disable_vsync=true
 
