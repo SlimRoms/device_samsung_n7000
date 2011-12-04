@@ -27,7 +27,8 @@ TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
-
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_BOARD_PLATFORM := smdkv310
 TARGET_BOOTLOADER_BOARD_NAME := GT-N7000
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
@@ -81,17 +82,18 @@ BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 BOARD_FM_DEVICE := si4709
 
 # WiFi (BCM4330)
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-BOARD_WLAN_DEVICE                := bcmdhd
-BOARD_WLAN_DEVICE_REV            := bcm4330_b1
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+WPA_SUPPLICANT_VERSION      := VER_0_8_X
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-WIFI_DRIVER_MODULE_PATH          := "/lib/modules/dhd.ko"
-WIFI_DRIVER_FW_PATH_STA          := "/system/vendor/firmware/bcm4330_sta.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/system/vendor/firmware/bcm4330_aps.bin"
-WIFI_DRIVER_MODULE_NAME          :=  "dhd"
-WIFI_DRIVER_MODULE_ARG           :=  "firmware_path=/system/vendor/firmware/bcm4330_sta.bin nvram_path=/system/etc/nvram_net.txt"
-WIFI_BAND                        := 802_11_ABG
+BOARD_HOSTAPD_DRIVER        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_bcmdhd
+BOARD_WLAN_DEVICE           := bcmdhd
+BOARD_WLAN_DEVICE_REV       := bcm4330_b1
+WIFI_DRIVER_MODULE_NAME     := "bcmdhd"
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA     := "/system/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd_p2p.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 # Touchscreen
 BOARD_USE_LEGACY_TOUCHSCREEN := true
