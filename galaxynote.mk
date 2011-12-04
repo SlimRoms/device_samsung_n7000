@@ -59,18 +59,18 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
 	
 # Bluetooth configuration files
-PRODUCT_COPY_FILES += \
-	system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
+#PRODUCT_COPY_FILES += \
+#	system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
 
 # Wifi
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/nvram_net.txt:system/etc/nvram_net.txt \
-	device/samsung/galaxynote/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+#	device/samsung/galaxynote/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/galaxynote/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES := \
-	wifi.interface=eth0 \
-	wifi.supplicant_scan_interval=15
+	wifi.interface=wlan0 \
+	wifi.supplicant_scan_interval=20
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
@@ -84,6 +84,7 @@ PRODUCT_PACKAGES := \
 	audio.primary.smdkv310 \
 	gps.smdkv310 \
     smdkv310_hdcp_keys \
+	audio.a2dp.default \
     com.android.future.usb.accessory
 
 # Charger
@@ -150,7 +151,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=131072 \
 	ro.sf.lcd_density=320 \
 	hwui.render_dirty_regions=false \
-    hwui.disable_vsync=true
+    hwui.disable_vsync=true \
+	ro.kernel.android.checkjni=0 \
+    dalvik.vm.checkjni=false
 
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -159,7 +162,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 # kernel modules for ramdisk
-RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/,bthid.ko dhd.ko gspca_main.ko j4fs.ko \
+RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/,bthid.ko gspca_main.ko j4fs.ko \
 	scsi_wait_scan.ko Si4709_driver.ko vibrator.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(RAMDISK_MODULES),\
