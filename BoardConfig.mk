@@ -96,7 +96,7 @@ WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd_p2p.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 # Touchscreen
-BOARD_USE_LEGACY_TOUCHSCREEN := true
+#BOARD_USE_LEGACY_TOUCHSCREEN := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
