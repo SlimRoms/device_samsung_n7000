@@ -91,12 +91,9 @@ BOARD_WLAN_DEVICE           := bcmdhd
 BOARD_WLAN_DEVICE_REV       := bcm4330_b1
 WIFI_DRIVER_MODULE_NAME     := "bcmdhd"
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA     := "/system/vendor/firmware/fw_bcmdhd.bin"
-WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd_p2p.bin"
-WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
-
-# Touchscreen
-#BOARD_USE_LEGACY_TOUCHSCREEN := true
+WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_P2P     := "/vendor/firmware/fw_bcmdhd_p2p.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

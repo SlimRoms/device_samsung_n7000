@@ -59,20 +59,17 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
 	
 # Bluetooth configuration files
-#PRODUCT_COPY_FILES += \
-#	system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxynote/configs/main.conf:system/etc/bluetooth/main.conf
 
 # Wifi
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/nvram_net.txt:system/etc/nvram_net.txt \
-#	device/samsung/galaxynote/configs/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/samsung/galaxynote/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
 	wifi.supplicant_scan_interval=20
-
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 
 # Gps
 PRODUCT_COPY_FILES += \
@@ -84,7 +81,6 @@ PRODUCT_PACKAGES := \
 	audio.primary.smdkv310 \
 	gps.smdkv310 \
     smdkv310_hdcp_keys \
-	audio.a2dp.default \
     com.android.future.usb.accessory
 
 # Charger
@@ -105,7 +101,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=samsung \
     ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
-    mobiledata.interfaces=pdp0,eth0,gprs,ppp0
+    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -155,6 +151,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.kernel.android.checkjni=0 \
     dalvik.vm.checkjni=false
 
+# enable Google-specific location features,
+# like NetworkLocationProvider and LocationCollector
+PRODUCT_PROPERTY_OVERRIDES += \
+        ro.com.google.locationfeatures=1 \
+        ro.com.google.networklocation=1
+	
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set default USB interface
@@ -187,5 +189,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, vendor/samsung/galaxynote/galaxynote-vendor.mk)
