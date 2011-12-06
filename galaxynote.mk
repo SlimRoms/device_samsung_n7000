@@ -101,6 +101,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=samsung \
     ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
+	ro.telephony.sends_barcount=1 \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Filesystem management tools
@@ -189,6 +190,6 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, vendor/samsung/galaxynote/galaxynote-vendor.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
