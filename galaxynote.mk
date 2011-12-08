@@ -79,6 +79,7 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
 	audio.primary.smdkv310 \
+	audio_policy.smdkv310 \
 	gps.smdkv310 \
     smdkv310_hdcp_keys \
     com.android.future.usb.accessory
@@ -165,7 +166,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 # kernel modules for ramdisk
-RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/,bthid.ko gspca_main.ko j4fs.ko \
+RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/, gspca_main.ko j4fs.ko \
 	scsi_wait_scan.ko Si4709_driver.ko vibrator.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(RAMDISK_MODULES),\
