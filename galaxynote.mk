@@ -21,10 +21,10 @@ PRODUCT_LOCALES += xhdpi
 # Init files
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxynote/lpm.rc:root/lpm.rc \
-	device/samsung/galaxynote/init.smdkv310.usb.rc:root/init.smdkv310.usb.rc \
+	device/samsung/galaxynote/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
 	device/samsung/galaxynote/init.smdkc210.rc:root/init.smdkc210.rc \
-	device/samsung/galaxynote/init.smdkv310.rc:root/init.smdkv310.rc \
-	device/samsung/galaxynote/ueventd.smdkv310.rc:root/ueventd.smdkv310.rc
+	device/samsung/galaxynote/init.smdk4210.rc:root/init.smdk4210.rc \
+	device/samsung/galaxynote/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
 
 # APNs - REMOVE IF VENDOR CYANOGEN IS BACK
 PRODUCT_COPY_FILES += \
