@@ -126,21 +126,11 @@ on fs
     chown system system /sys/devices/platform/android_usb/tethering
 
     # setup for alsa snd device
-    symlink /dev/snd/pcmC0D0c /dev/pcmC0D0c
-    symlink /dev/snd/pcmC0D0p /dev/pcmC0D0p
-    symlink /dev/snd/controlC0 /dev/controlC0
-    symlink /dev/snd/timer /dev/timer
-    symlink /dev/snd/hwC0D0 /dev/hwC0D0
-    chmod 0777 /dev/pcmC0D0c
-    chmod 0777 /dev/pcmC0D0p
-    chmod 0777 /dev/controlC0
-    chmod 0777 /dev/timer
-    chmod 0777 /dev/hwC0D0
-    chmod 0777 /dev/snd/pcmC0D0c
-    chmod 0777 /dev/snd/pcmC0D0p
-    chmod 0777 /dev/snd/controlC0
-    chmod 0777 /dev/snd/timer
-    chmod 0777 /dev/snd/hwC0D0
+	chmod 0770 /dev/snd/pcmC0D0c
+    chmod 0770 /dev/snd/pcmC0D0p
+    chmod 0770 /dev/snd/controlC0
+    chmod 0770 /dev/snd/timer
+    chmod 0770 /dev/snd/hwC0D0
 
 	# Permissions for gpio_keys
     chown radio system /sys/devices/platform/sec_key.0/wakeup_keys 

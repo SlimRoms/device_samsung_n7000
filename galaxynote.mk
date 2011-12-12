@@ -35,12 +35,19 @@ PRODUCT_COPY_FILES += \
 # soundbooster.txt - needs to be at /data/soundbooster.txt
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf \
+	device/samsung/galaxynote/configs/audio_effects.conf:system/etc/audio_effects.conf \
 	device/samsung/galaxynote/configs/soundbooster.txt:system/etc/audio/soundbooster.txt
+	
+# omx
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxys2/configs/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/galaxys2/configs/secomxregistry:system/etc/secomxregistry \
+	device/samsung/galaxys2/configs/somxreg.conf:system/etc/somxreg.conf
 	
 # Touchscreen
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_touchscreen.idc \
+	device/samsung/galaxynote/configs/melfas_ts.idc:system/usr/idc/melfas_ts.idc \
+	device/samsung/galaxynote/configs/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc \
 	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_e-pen.idc \
 
 # Keylayout
@@ -78,10 +85,6 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-	audio.primary.smdkv310 \
-	audio_policy.smdkv310 \
-	gps.smdkv310 \
-    smdkv310_hdcp_keys \
     com.android.future.usb.accessory
 
 # Charger
@@ -94,15 +97,12 @@ PRODUCT_PACKAGES += \
 	Camera
 
 # Sensors
-PRODUCT_PACKAGES += \
-	lights.smdkv310 \
-	sensors.smdkv310
+# PRODUCT_PACKAGES += \
+#	sensors.smdkv310
 
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=samsung \
-    ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
-	ro.telephony.sends_barcount=1 \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Filesystem management tools

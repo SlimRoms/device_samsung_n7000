@@ -29,8 +29,8 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_BOARD_PLATFORM := smdkv310
-TARGET_BOOTLOADER_BOARD_NAME := GT-N7000
+TARGET_BOARD_PLATFORM := s5pc210
+TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 
 TARGET_NO_BOOTLOADER := true
@@ -60,12 +60,12 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxynote/release
 # Graphics (Mali 400)
 BOARD_EGL_CFG := device/samsung/galaxynote/configs/egl.cfg
 USE_OPENGL_RENDERER := true
+
+# HWComposer
 BOARD_USES_HWCOMPOSER := true
-BOARD_USES_LEGACY_EGL := true
-COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_EGL_PIXEL_FORMAT_YV12 -DMISSING_GRALLOC_BUFFERS
+BOARD_USE_SECTVOUT := true
 
 # Audio
-BOARD_USES_AUDIO_LEGACY := true
 BOARD_USE_YAMAHAPLAYER := true
 
 # Camera
