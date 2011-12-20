@@ -21,10 +21,10 @@ PRODUCT_LOCALES += xhdpi
 # Init files
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxynote/lpm.rc:root/lpm.rc \
-	device/samsung/galaxynote/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
+	device/samsung/galaxynote/init.smdkv310.usb.rc:root/init.smdkv310.usb.rc \
 	device/samsung/galaxynote/init.smdkc210.rc:root/init.smdkc210.rc \
-	device/samsung/galaxynote/init.smdk4210.rc:root/init.smdk4210.rc \
-	device/samsung/galaxynote/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
+	device/samsung/galaxynote/init.smdkv310.rc:root/init.smdkv310.rc \
+	device/samsung/galaxynote/ueventd.smdkv310.rc:root/ueventd.smdkv310.rc
 
 # APNs - REMOVE IF VENDOR CYANOGEN IS BACK
 PRODUCT_COPY_FILES += \
@@ -35,19 +35,12 @@ PRODUCT_COPY_FILES += \
 # soundbooster.txt - needs to be at /data/soundbooster.txt
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf \
-	device/samsung/galaxynote/configs/audio_effects.conf:system/etc/audio_effects.conf \
 	device/samsung/galaxynote/configs/soundbooster.txt:system/etc/audio/soundbooster.txt
-	
-# omx
-PRODUCT_COPY_FILES += \
-	device/samsung/galaxys2/configs/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/galaxys2/configs/secomxregistry:system/etc/secomxregistry \
-	device/samsung/galaxys2/configs/somxreg.conf:system/etc/somxreg.conf
 	
 # Touchscreen
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/melfas_ts.idc:system/usr/idc/melfas_ts.idc \
-	device/samsung/galaxynote/configs/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc \
+	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc \
+	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_touchscreen.idc \
 	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_e-pen.idc \
 
 # Keylayout
@@ -85,6 +78,10 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
+#	audio.primary.smdkv310 \
+#	audio_policy.smdkv310 \
+	gps.smdkv310 \
+    smdkv310_hdcp_keys \
     com.android.future.usb.accessory
 
 # Charger
@@ -97,12 +94,15 @@ PRODUCT_PACKAGES += \
 	Camera
 
 # Sensors
-# PRODUCT_PACKAGES += \
-#	sensors.smdkv310
-
+PRODUCT_PACKAGES += \
+	lights.smdkv310 \
+	sensors.smdkv310
+	
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=samsung \
+    ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
+	ro.telephony.sends_barcount=1 \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Filesystem management tools
@@ -129,6 +129,7 @@ PRODUCT_PACKAGES += \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
+	frameworks/base/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
 	frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
 	frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
@@ -167,7 +168,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # kernel modules for ramdisk
 RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/, gspca_main.ko j4fs.ko \
-	scsi_wait_scan.ko Si4709_driver.ko vibrator.ko)
+	scsi_wait_scan.ko vibrator.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(RAMDISK_MODULES),\
 	$(module):root/lib/modules/$(notdir $(module)))
