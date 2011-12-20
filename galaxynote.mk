@@ -21,10 +21,10 @@ PRODUCT_LOCALES += xhdpi
 # Init files
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxynote/lpm.rc:root/lpm.rc \
-	device/samsung/galaxynote/init.smdkv310.usb.rc:root/init.smdkv310.usb.rc \
+	device/samsung/galaxynote/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
 	device/samsung/galaxynote/init.smdkc210.rc:root/init.smdkc210.rc \
-	device/samsung/galaxynote/init.smdkv310.rc:root/init.smdkv310.rc \
-	device/samsung/galaxynote/ueventd.smdkv310.rc:root/ueventd.smdkv310.rc
+	device/samsung/galaxynote/init.smdk4210.rc:root/init.smdk4210.rc \
+	device/samsung/galaxynote/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
 
 # APNs - REMOVE IF VENDOR CYANOGEN IS BACK
 PRODUCT_COPY_FILES += \
@@ -78,10 +78,10 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-#	audio.primary.smdkv310 \
-#	audio_policy.smdkv310 \
-	gps.smdkv310 \
-    smdkv310_hdcp_keys \
+#	audio.primary.smdk4210 \
+#	audio_policy.smdk4210 \
+	gps.smdk4210 \
+    smdk4210_hdcp_keys \
     com.android.future.usb.accessory
 
 # Charger
@@ -95,8 +95,8 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-	lights.smdkv310 \
-	sensors.smdkv310
+	lights.smdk4210 \
+	sensors.smdk4210
 	
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
