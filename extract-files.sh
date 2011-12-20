@@ -254,10 +254,10 @@ PRODUCT_COPY_FILES += \\
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/acoustics.default.so:system/lib/hw/acoustics.default.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/alsa.default.so:system/lib/hw/alsa.default.so \\
-    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/copybit.GT-N7000.so:system/lib/hw/copybit.smdkv310.so \\
-    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/gps.GT-N7000.so:system/lib/hw/vendor-gps.smdkv310.so \\
+    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/copybit.GT-N7000.so:system/lib/hw/copybit.smdk4210.so \\
+    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/gps.GT-N7000.so:system/lib/hw/vendor-gps.smdk4210.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \\
-    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/gralloc.GT-N7000.so:system/lib/hw/gralloc.smdkv310.so
+    vendor/__MANUFACTURER__/__COMMON__/proprietary/hw/gralloc.GT-N7000.so:system/lib/hw/gralloc.smdk4210.so
 
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/keychars/Broadcom_Bluetooth_HID.kcm.bin:system/usr/keychars/Broadcom_Bluetooth_HID.kcm.bin \\

@@ -3,7 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
 
-LOCAL_MODULE := gps.smdkv310
+LOCAL_MODULE := gps.smdk4210
 
 LOCAL_SHARED_LIBRARIES:= \
 	liblog \

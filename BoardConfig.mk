@@ -29,7 +29,7 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_BOARD_PLATFORM := smdkv310
+TARGET_BOARD_PLATFORM := smdk4210
 TARGET_BOOTLOADER_BOARD_NAME := GT-N7000
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 
