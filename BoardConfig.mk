@@ -115,7 +115,7 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxynote/vibrator/ts
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxynote/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxynote/recovery/graphics.c
-BOARD_UMS_LUNFILE := /sys/class/android_usb/android0/f_mass_storage/lun/file
+BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true 
 BOARD_HAS_NO_SELECT_BUTTON := true

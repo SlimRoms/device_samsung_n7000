@@ -36,6 +36,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf \
 	device/samsung/galaxynote/configs/soundbooster.txt:system/etc/audio/soundbooster.txt
+
+# omx
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxynote/configs/media_profiles.xml:system/etc/media_profiles.xml \
+	device/samsung/galaxynote/configs/secomxregistry:system/etc/secomxregistry \
+	device/samsung/galaxynote/configs/somxreg.conf:system/etc/somxreg.conf
 	
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -150,9 +156,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=131072 \
 	ro.sf.lcd_density=320 \
 	hwui.render_dirty_regions=false \
-    hwui.disable_vsync=true \
+	hwui.disable_vsync=true \
 	ro.kernel.android.checkjni=0 \
-    dalvik.vm.checkjni=false
+	dalvik.vm.checkjni=false
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
