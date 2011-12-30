@@ -53,6 +53,24 @@ on post-fs-data
     chmod 0600 /data/.psm.info
 	
 	setprop vold.post_fs_data_done 1
+	
+	#DRM directory creation
+    mkdir /system/etc/security/.drm 0775
+    chown root root /system/etc/security/.drm
+    chmod 0775 /system/etc/security/.drm
+
+    # Added for Playready DRM Support
+    mkdir /data/data/.drm 0775
+    chown drm system /data/data/.drm
+    chmod 0775 /data/data/.drm
+    mkdir /data/data/.drm/.playready 0775
+    chown drm system /data/data/.drm/.playready
+    chmod 0775 /data/data/.drm/.playready
+
+    #Added drm folder to copy drm plugins
+    mkdir /system/lib/drm 0775
+    chown root root /system/lib/drm
+    chmod 0775 /system/lib/drm
 
 on boot
 	mount debugfs /sys/kernel/debug /sys/kernel/debug
@@ -142,6 +160,17 @@ on fs
     chmod 0777 /dev/snd/timer
     chmod 0777 /dev/snd/hwC0D0
 
+	#panorama directory creation
+    mkdir /data/pxtmpdir 0775
+    chown system system /data/pxtmpdir
+    chmod 0775 /data/pxtmpdir
+	
+	# Permissions for dvfs lock
+    chown system system /sys/power/cpufreq_max_limit
+    chown system system /sys/power/cpufreq_min_limit
+    chmod 0660 /sys/power/cpufreq_max_limit
+    chmod 0660 /sys/power/cpufreq_min_limit
+	
 	# Permissions for gpio_keys
     chown radio system /sys/devices/platform/sec_key.0/wakeup_keys 
     write /sys/devices/platform/sec_key.0/wakeup_keys  102,116
@@ -263,7 +292,7 @@ on fs
     chown radio system /sys/devices/virtual/net/svnet0/waketime
 
     #bluetooth
-	#setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
+	setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
 	chown bluetooth bluetooth ro.bt.bdaddr_path
     chown bluetooth bluetooth /dev/s3c2410_serial0
     chmod 0660 /dev/s3c2410_serial0
@@ -326,7 +355,7 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -puse_p2p_gr
     oneshot
 
 # hciattach
-service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable_lpm --enable_hci --baudrate 3000000 --patchram /system/bin/BCM4330B1_002.001.003.0485.0501.hcd /dev/s3c2410_serial0 --no2bytes --tosleep=50000
+service hciattach /system/bin/brcm_patchram_plus --enable_lpm --enable_hci --baudrate 3000000 --use_baudrate_for_download --no2bytes --tosleep=50000 --patchram /system/bin/BCM4330B1_002.001.003.0485.0501.hcd /dev/s3c2410_serial0
     class main
     user bluetooth
     group bluetooth net_bt_admin
@@ -337,13 +366,14 @@ service hciattach /system/bin/logwrapper /system/bin/brcm_patchram_plus --enable
 service bdaddr /system/bin/bdaddr_read
     class main
     user root
+	disabled
     oneshot
 
 # tvout
-service tvout /system/bin/tvoutserver
-    class main
-    user system
-    group graphics
+service TvoutService_C /system/bin/bintvoutservice
+	class main
+	user system
+	group graphics
 
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
