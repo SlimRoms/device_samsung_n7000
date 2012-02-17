@@ -16,7 +16,7 @@
 
 # This variable is set first, so it can be overridden
 # by BoardConfigVendor.mk
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_LIBSECRIL_STUB := true
 
@@ -26,10 +26,11 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
+ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_BOARD_PLATFORM := s5pc210
+TARGET_BOARD_PLATFORM := exynos4
 TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 
@@ -67,12 +68,13 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/galaxynote/release
 BOARD_EGL_CFG := device/samsung/galaxynote/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USES_HWCOMPOSER := true
-BOARD_USES_LEGACY_EGL := true
-COMMON_GLOBAL_CFLAGS += -DMISSING_EGL_EXTERNAL_IMAGE -DMISSING_EGL_PIXEL_FORMAT_YV12 -DMISSING_GRALLOC_BUFFERS
 BOARD_USE_SECTVOUT := true
 
 # Audio
 BOARD_USE_YAMAHAPLAYER := true
+
+# OMX
+BOARD_USE_SAMSUNG_OMX := true
 
 # Camera
 ifeq ($(USE_CAMERA_STUB),false)
@@ -109,7 +111,11 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 # Vold
 BOARD_VOLD_MAX_PARTITIONS := 12
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
+BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/usb_mass_storage/lun%d/file"
+
+# MTP
+BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
 
 # Vibrator
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxynote/vibrator/tspdrv.c
@@ -117,7 +123,7 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/galaxynote/vibrator/ts
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxynote/recovery/recovery_keys.c
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/galaxynote/recovery/graphics.c
-BOARD_UMS_LUNFILE := /sys/devices/platform/usb_mass_storage/lun0/file
+BOARD_UMS_LUNFILE := "/sys/class/android_usb/f_mass_storage/lun0/file"
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true 
 BOARD_HAS_NO_SELECT_BUTTON := true

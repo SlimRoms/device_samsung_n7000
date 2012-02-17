@@ -66,7 +66,7 @@ PRODUCT_COPY_FILES += \
 	
 # Bluetooth configuration files
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/main.conf:system/etc/bluetooth/main.conf
+	system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -84,11 +84,10 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-#	audio.primary.smdk4210 \
-#	audio_policy.smdk4210 \
-	gps.smdk4210 \
-    smdk4210_hdcp_keys \
-    com.android.future.usb.accessory
+	camera.exynos4 \
+    TvOut \
+	TvOutHack \
+    com.android.future.usb.accessory \
 
 # Charger
 #PRODUCT_PACKAGES += \
@@ -101,8 +100,8 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-	lights.smdk4210 \
-	sensors.smdk4210
+	lights.exynos4 \
+	sensors.exynos4
 	
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -199,5 +198,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Include exynos4 platform specific parts
+$(call inherit-product, hardware/sec/exynos4/exynos4.mk)
+$(call inherit-product, hardware/sec/exynos4/Android.mk)
+
 $(call inherit-product-if-exists, vendor/samsung/galaxynote/galaxynote-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
