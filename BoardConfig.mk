@@ -51,7 +51,7 @@ BOARD_NAND_PAGE_SIZE := 4096 -s 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
-TARGET_PREBUILT_KERNEL := device/samsung/galaxynote/kernel
+TARGET_PREBUILT_KERNEL := device/samsung/galaxynote/zImage
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true

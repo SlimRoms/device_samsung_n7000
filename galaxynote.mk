@@ -22,20 +22,12 @@ PRODUCT_LOCALES += xhdpi
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxynote/lpm.rc:root/lpm.rc \
 	device/samsung/galaxynote/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
-	device/samsung/galaxynote/init.smdkc210.rc:root/init.smdkc210.rc \
 	device/samsung/galaxynote/init.smdk4210.rc:root/init.smdk4210.rc \
 	device/samsung/galaxynote/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
 
-# APNs - REMOVE IF VENDOR CYANOGEN IS BACK
-PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/apns-conf.xml:system/etc/apns-conf.xml \
-	device/samsung/galaxynote/configs/spn-conf.xml:system/etc/spn-conf.xml
-
 # Audio
-# soundbooster.txt - needs to be at /data/soundbooster.txt
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf \
-	device/samsung/galaxynote/configs/soundbooster.txt:system/etc/audio/soundbooster.txt
+	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf
 
 # omx
 PRODUCT_COPY_FILES += \
@@ -43,34 +35,14 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/secomxregistry:system/etc/secomxregistry \
 	device/samsung/galaxynote/configs/somxreg.conf:system/etc/somxreg.conf
 	
-# Touchscreen
-PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_ts_ics_bio.idc \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_touchscreen.idc \
-	device/samsung/galaxynote/configs/sec_ts_ics_bio.idc:system/usr/idc/sec_e-pen.idc \
-
-# Keylayout
-PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/keylayout/AVRCP.kl:/system/usr/keylayout/AVRCP.kl \
-	device/samsung/galaxynote/keylayout/Broadcom_Bluetooth_HID.kl:/system/usr/keylayout/Broadcom_Bluetooth_HID.kl \
-	device/samsung/galaxynote/keylayout/sec_jack.kl:/system/usr/keylayout/sec_jack.kl \
-	device/samsung/galaxynote/keylayout/sec_key.kl:/system/usr/keylayout/sec_key.kl \
-	device/samsung/galaxynote/keylayout/sec_touchkey.kl:/system/usr/keylayout/sec_touchkey.kl \
-	device/samsung/galaxynote/keylayout/sec_e-pen.kl:/system/usr/keylayout/sec_e-pen.kl \
-	device/samsung/galaxynote/keylayout/qwerty.kl:/system/usr/keylayout/qwerty.kl \
-	device/samsung/galaxynote/keylayout/Vendor_04E8_Product_7021.kl:/system/usr/keylayout/Vendor_04E8_Product_7021.kl
-	
 # Vold
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
-	
-# Bluetooth configuration files
-PRODUCT_COPY_FILES += \
-	system/bluetooth/data/main.le.conf:system/etc/bluetooth/main.conf
 
 # Wifi
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/nvram_net.txt:system/etc/nvram_net.txt \
+	device/samsung/galaxynote/configs/nvram_mfg.txt:system/etc/nvram_mfg.txt \
 	device/samsung/galaxynote/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -79,8 +51,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Gps
 PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/gps.conf:system/etc/gps.conf \
-	device/samsung/galaxynote/configs/gps.xml:system/etc/gps.xml
+	device/samsung/galaxynote/configs/gps.conf:system/etc/gps.conf
 
 # Packages
 PRODUCT_PACKAGES := \
@@ -88,11 +59,6 @@ PRODUCT_PACKAGES := \
     TvOut \
 	TvOutHack \
     com.android.future.usb.accessory \
-
-# Charger
-#PRODUCT_PACKAGES += \
-#	charger \
-#	charger_res_images
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -105,9 +71,7 @@ PRODUCT_PACKAGES += \
 	
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=samsung \
-    ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock \
-	ro.telephony.sends_barcount=1 \
+    ro.telephony.ril_class=Smdk4210RIL \
     mobiledata.interfaces=pdp0,wlan0,gprs,ppp0
 
 # Filesystem management tools
@@ -131,6 +95,43 @@ PRODUCT_PACKAGES += \
 	PhaseBeam \
 	VisualizationWallpapers \
 	librs_jni
+
+# Keylayout
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxynote/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/samsung/galaxynote/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
+    device/samsung/galaxynote/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    device/samsung/galaxynote/usr/keylayout/max8997-muic.kl:system/usr/keylayout/max8997-muic.kl \
+    device/samsung/galaxynote/usr/keylayout/melfas-touchkey.kl:system/usr/keylayout/melfas-touchkey.kl \
+    device/samsung/galaxynote/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
+    device/samsung/galaxynote/usr/keylayout/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl \
+    device/samsung/galaxynote/usr/keylayout/sec_key.kl:system/usr/keylayout/sec_key.kl \
+    device/samsung/galaxynote/usr/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl \
+    device/samsung/galaxynote/usr/keylayout/sii9234_rcp.kl:system/usr/keylayout/sii9234_rcp.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_04e8_Product_7021.kl:system/usr/keylayout/Vendor_04e8_Product_7021.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_05ac_Product_0239.kl:system/usr/keylayout/Vendor_05ac_Product_0239.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_22b8_Product_093d.kl:system/usr/keylayout/Vendor_22b8_Product_093d.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_028e.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_046d_Product_c216.kl:system/usr/keylayout/Vendor_046d_Product_c216.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_046d_Product_c294.kl:system/usr/keylayout/Vendor_046d_Product_c294.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_046d_Product_c299.kl:system/usr/keylayout/Vendor_046d_Product_c299.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_046d_Product_c532.kl:system/usr/keylayout/Vendor_046d_Product_c532.kl \
+    device/samsung/galaxynote/usr/keylayout/Vendor_054c_Product_0268.kl:system/usr/keylayout/Vendor_054c_Product_0268.kl
+
+# Keychars
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxynote/usr/keychars/Generic.kcm:system/usr/keychars/Generic.kcm \
+    device/samsung/galaxynote/usr/keychars/qwerty.kcm:system/usr/keychars/qwerty.kcm \
+    device/samsung/galaxynote/usr/keychars/qwerty2.kcm:system/usr/keychars/qwerty2.kcm \
+    device/samsung/galaxynote/usr/keychars/Virtual.kcm:system/usr/keychars/Virtual.kcm
+
+#idc
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxynote/usr/idc/melfas_ts.idc:system/usr/idc/melfas_ts.idc \
+    device/samsung/galaxynote/usr/idc/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
+    device/samsung/galaxynote/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+    device/samsung/galaxynote/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    device/samsung/galaxynote/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -162,8 +163,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector
 PRODUCT_PROPERTY_OVERRIDES += \
-        ro.com.google.locationfeatures=1 \
-        ro.com.google.networklocation=1
+    ro.com.google.locationfeatures=1 \
+    ro.com.google.networklocation=1
 	
 PRODUCT_TAGS += dalvik.gc.type-precise
 
@@ -172,8 +173,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
 # kernel modules for ramdisk
-RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/, gspca_main.ko j4fs.ko \
-	scsi_wait_scan.ko vibrator.ko)
+RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/, dhd.ko j4fs.ko \
+	scsi_wait_scan.ko Si4709_driver.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(RAMDISK_MODULES),\
 	$(module):root/lib/modules/$(notdir $(module)))
@@ -187,15 +188,9 @@ PRODUCT_COPY_FILES += $(foreach module,\
 PRODUCT_COPY_FILES += \
     device/samsung/galaxynote/modules/j4fs.ko:recovery/root/lib/modules/j4fs.ko
 
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-    LOCAL_KERNEL := device/samsung/galaxynote/kernel
-else
-    LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-	
 # the kernel itself
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+    device/samsung/galaxynote/zImage:kernel
 
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 

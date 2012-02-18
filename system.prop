@@ -1,5 +1,5 @@
 #
-# system.prop for galaxynote
+# system.prop for galaxys2
 #
 
 rild.libpath=/system/lib/libsec-ril.so
