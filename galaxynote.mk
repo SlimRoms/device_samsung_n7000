@@ -195,8 +195,7 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Include exynos4 platform specific parts
-$(call inherit-product, hardware/sec/exynos4/exynos4.mk)
-$(call inherit-product, hardware/sec/exynos4/Android.mk)
+$(call inherit-product, hardware/samsung/exynos4/Android.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/galaxynote/galaxynote-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
