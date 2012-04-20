@@ -172,26 +172,6 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
 
-# kernel modules for ramdisk
-RAMDISK_MODULES := $(addprefix device/samsung/galaxynote/modules/, dhd.ko j4fs.ko \
-	scsi_wait_scan.ko Si4709_driver.ko)
-PRODUCT_COPY_FILES += $(foreach module,\
-	$(RAMDISK_MODULES),\
-	$(module):root/lib/modules/$(notdir $(module)))
-
-# other kernel modules not in ramdisk
-PRODUCT_COPY_FILES += $(foreach module,\
-	$(filter-out $(RAMDISK_MODULES),$(wildcard device/samsung/galaxynote/modules/*.ko)),\
-	$(module):system/lib/modules/$(notdir $(module)))
-
-# kernel modules for recovery ramdisk
-PRODUCT_COPY_FILES += \
-    device/samsung/galaxynote/modules/j4fs.ko:recovery/root/lib/modules/j4fs.ko
-
-# the kernel itself
-PRODUCT_COPY_FILES += \
-    device/samsung/galaxynote/zImage:kernel
-
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Include exynos4 platform specific parts
