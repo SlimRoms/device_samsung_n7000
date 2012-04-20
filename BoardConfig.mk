@@ -28,8 +28,6 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_BOARD_PLATFORM := exynos4
 TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
@@ -37,7 +35,7 @@ TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 EXYNOS4210_ENHANCEMENTS := true
 ifdef EXYNOS4210_ENHANCEMENTS
 COMMON_GLOBAL_CFLAGS += -DEXYNOS4210_ENHANCEMENTS
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_COLORFORMAT
+COMMON_GLOBAL_CFLAGS += -DSURFACEFLINGER_FORCE_SCREEN_RELEASE
 endif
 
 TARGET_NO_BOOTLOADER := true
@@ -54,7 +52,7 @@ BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
 
 # Inline kernel building
 TARGET_KERNEL_SOURCE := kernel/samsung/smdk4210
-TARGET_KERNEL_CONFIG := cyanogenmod_galaxys2_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_galaxynote_defconfig
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -72,12 +70,18 @@ BOARD_EGL_CFG := device/samsung/galaxynote/configs/egl.cfg
 USE_OPENGL_RENDERER := true
 BOARD_USES_HWCOMPOSER := true
 BOARD_USE_SECTVOUT := true
+BOARD_USES_FIMGAPI := true
+
+# OMX
+BOARD_HAVE_CODEC_SUPPORT := SAMSUNG_CODEC_SUPPORT
+COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CODEC_SUPPORT
+BOARD_NONBLOCK_MODE_PROCESS := true
+BOARD_USE_STOREMETADATA := true
+BOARD_USE_METADATABUFFERTYPE := true
+BOARD_USES_MFC_FPS := true
 
 # Audio
 BOARD_USE_YAMAHAPLAYER := true
-
-# OMX
-BOARD_USE_SAMSUNG_OMX := true
 
 # Camera
 ifeq ($(USE_CAMERA_STUB),false)
@@ -117,10 +121,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_VOLD_MAX_PARTITIONS := 12
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS := true
-TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/usb_mass_storage/lun%d/file"
-
-# MTP
-BOARD_MTP_DEVICE := "/dev/usb_mtp_gadget"
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/galaxynote/recovery/recovery_keys.c
