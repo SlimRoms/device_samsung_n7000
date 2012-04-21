@@ -290,8 +290,8 @@ on boot
 
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    setprop ro.build.product GT-I9100
-    setprop ro.product.device GT-I9100
+    setprop ro.build.product GT-N7000
+    setprop ro.product.device GT-N7000
     setprop ro.radio.noril yes
 
 # Permisions for sensors
