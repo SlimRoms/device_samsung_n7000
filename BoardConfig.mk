@@ -29,6 +29,7 @@ TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_NEON := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_BOARD_PLATFORM := exynos4
+TARGET_SOC := exynos4210
 TARGET_BOOTLOADER_BOARD_NAME := smdk4210
 TARGET_BOARD_INFO_FILE := device/samsung/galaxynote/board-info.txt
 

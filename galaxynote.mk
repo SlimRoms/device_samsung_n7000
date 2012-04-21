@@ -35,12 +35,13 @@ PRODUCT_COPY_FILES += \
 # omx
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/media_profiles.xml:system/etc/media_profiles.xml \
-	device/samsung/galaxynote/configs/secomxregistry:system/etc/secomxregistry \
-	device/samsung/galaxynote/configs/somxreg.conf:system/etc/somxreg.conf
 	
-# Vold
+# Vold and Storage
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
+
+PRODUCT_PROPERTY_OVERRIDES := \
+    ro.vold.switchablepair=/mnt/sdcard,/mnt/emmc
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -48,7 +49,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/nvram_mfg.txt:system/etc/nvram_mfg.txt \
 	device/samsung/galaxynote/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
 	wifi.interface=wlan0 \
 	wifi.supplicant_scan_interval=20
 
@@ -58,20 +59,51 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
+	Camera \
 	camera.exynos4 \
-    TvOut \
+	Torch \
+	TvOut \
 	TvOutHack \
-    com.android.future.usb.accessory \
+	com.android.future.usb.accessory \
 
-# Camera
+# HAL
 PRODUCT_PACKAGES += \
-	Camera
+    lights.exynos4 \
+    libhwconverter \
+    libswconverter \
+    libs5pjpeg \
+    libfimg
+
+# MFC API
+PRODUCT_PACKAGES += \
+    libsecmfcapi
 
 # Sensors
 PRODUCT_PACKAGES += \
-	lights.exynos4 \
 	sensors.exynos4
 	
+# OMX
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
+    libcsc \
+    libsecbasecomponent \
+    libsecosal \
+    libSEC_OMX_Resourcemanager \
+    libSEC_OMX_Core \
+    libSEC_OMX_Vdec \
+    libOMX.SEC.AVC.Decoder \
+    libOMX.SEC.M4V.Decoder \
+    libOMX.SEC.WMV.Decoder \
+    libOMX.SEC.VP8.Decoder \
+    libSEC_OMX_Venc \
+    libOMX.SEC.AVC.Encoder \
+    libOMX.SEC.M4V.Encoder \
+    libSEC_OMX_Adec \
+    libOMX.SEC.MP3.Decoder
+
+PRODUCT_COPY_FILES += \
+    device/samsung/galaxys2/configs/media_profiles.xml:system/etc/media_profiles.xml
+
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=Smdk4210RIL \

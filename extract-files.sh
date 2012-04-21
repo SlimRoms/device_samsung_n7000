@@ -43,14 +43,12 @@ adb pull /system/lib/libcaps.so ../../../vendor/$MANUFACTURER/$COMMON/proprietar
 adb pull /system/lib/libEGL.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libEGL.so
 adb pull /system/lib/libexif.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libexif.so
 adb pull /system/lib/libfimc.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libfimc.so
-adb pull /system/lib/libfimg.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libfimg.so
 adb pull /system/lib/libGLESv1_CM.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libGLESv1_CM.so
 adb pull /system/lib/libGLESv2.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libGLESv2.so
 adb pull /system/lib/libMali.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libMali.so
 adb pull /system/lib/libOpenSLES.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libOpenSLES.so
 adb pull /system/lib/libPanoraMax3.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libPanoraMax3.so
 adb pull /system/lib/libril.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libril.so
-adb pull /system/lib/libs5pjpeg.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libs5pjpeg.so
 adb pull /system/lib/libseccamera_jni.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libseccamera_jni.so
 adb pull /system/lib/libseccameracore.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libseccameracore.so
 adb pull /system/lib/libsecjpegarcsoft.so ../../../vendor/$MANUFACTURER/$COMMON/proprietary/libsecjpegarcsoft.so
@@ -211,7 +209,6 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libexif.so:system/lib/libexif.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libfimc.so:system/lib/libfimc.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libfimc.so:obj/lib/libfimc.so \\
-    vendor/__MANUFACTURER__/__COMMON__/proprietary/libfimg.so:system/lib/libfimg.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libGLESv1_CM.so:system/lib/libGLESv1_CM.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libGLESv2.so:system/lib/libGLESv2.so \\
     vendor/__MANUFACTURER__/__COMMON__/proprietary/libMali.so:system/lib/libMali.so \\
