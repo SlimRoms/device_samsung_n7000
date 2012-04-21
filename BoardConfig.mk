@@ -131,6 +131,8 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true 
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+TARGET_SPECIFIC_HEADER_PATH := device/samsung/galaxynote/overlay/include
+
 # assert
 TARGET_OTA_ASSERT_DEVICE := galaxynote,GT-N7000
 
