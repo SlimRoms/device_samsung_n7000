@@ -18,6 +18,9 @@ PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_LOCALES += xhdpi
 
+#Bootanimation
+TARGET_BOOTANIMATION_NAME := vertical-720x1280
+
 # Init files
 PRODUCT_COPY_FILES := \
 	device/samsung/galaxynote/lpm.rc:root/lpm.rc \
