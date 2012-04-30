@@ -32,10 +32,6 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/asound.conf:system/etc/asound.conf
 
-# omx
-PRODUCT_COPY_FILES += \
-	device/samsung/galaxynote/configs/media_profiles.xml:system/etc/media_profiles.xml \
-	
 # Vold and Storage
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxynote/configs/vold.fstab:system/etc/vold.fstab
@@ -103,7 +99,7 @@ PRODUCT_PACKAGES += \
     libOMX.SEC.MP3.Decoder
 
 PRODUCT_COPY_FILES += \
-    device/samsung/galaxys2/configs/media_profiles.xml:system/etc/media_profiles.xml
+    device/samsung/galaxynote/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 # Ril
 PRODUCT_PROPERTY_OVERRIDES += \
