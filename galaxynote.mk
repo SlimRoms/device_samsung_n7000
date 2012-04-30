@@ -166,7 +166,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/galaxynote/usr/idc/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
     device/samsung/galaxynote/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
     device/samsung/galaxynote/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
-    device/samsung/galaxynote/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
+    device/samsung/galaxynote/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc \
+    device/samsung/galaxynote/usr/idc/sec_e-pen.idc:system/usr/idc/sec_e-pen.idc
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
