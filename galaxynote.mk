@@ -78,7 +78,7 @@ PRODUCT_PACKAGES += \
 # Sensors
 PRODUCT_PACKAGES += \
 	sensors.exynos4
-	
+
 # OMX
 PRODUCT_PACKAGES += \
     libstagefrighthw \
@@ -115,7 +115,7 @@ PRODUCT_PACKAGES += \
 # Bluetooth MAC Address
 PRODUCT_PACKAGES += \
 	bdaddr_read
-	
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
 	Galaxy4 \
@@ -198,7 +198,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
-	
+
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Set default USB interface
