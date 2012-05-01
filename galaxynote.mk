@@ -62,6 +62,7 @@ PRODUCT_PACKAGES := \
 	Camera \
 	camera.exynos4 \
 	Torch \
+	GalaxyNoteSettings \
 	TvOut \
 	TvOutHack \
 	com.android.future.usb.accessory \
