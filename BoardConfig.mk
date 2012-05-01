@@ -84,11 +84,6 @@ BOARD_USES_MFC_FPS := true
 # Audio
 BOARD_USE_YAMAHAPLAYER := true
 
-# Camera
-ifeq ($(USE_CAMERA_STUB),false)
-BOARD_CAMERA_LIBRARIES := libcamera
-endif
-
 # RIL
 BOARD_MOBILEDATA_INTERFACE_NAME := "pdp0"
 
