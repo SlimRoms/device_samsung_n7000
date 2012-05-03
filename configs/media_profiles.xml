@@ -471,8 +471,8 @@
         frames) memory.
     -->
 
-    <VideoEditorCap  maxInputFrameWidth="1280"
-        maxInputFrameHeight="720" maxOutputFrameWidth="1280"
+    <VideoEditorCap  maxInputFrameWidth="1920"
+        maxInputFrameHeight="1080" maxOutputFrameWidth="1280"
         maxOutputFrameHeight="720" maxPrefetchYUVFrames="5"/>
     <!--
         The VideoEditor Export codec profile and level values
