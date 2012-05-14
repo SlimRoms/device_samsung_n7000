@@ -14,7 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE),galaxynote)
+ifeq ($(TARGET_DEVICE),n7000)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 

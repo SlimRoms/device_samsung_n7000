@@ -15,4 +15,4 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_galaxynote.mk
+    $(LOCAL_DIR)/full_n7000.mk

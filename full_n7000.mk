@@ -23,11 +23,11 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 #$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 #$(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
-$(call inherit-product, device/samsung/galaxynote/galaxynote.mk)
+$(call inherit-product, device/samsung/n7000/n7000.mk)
 
 # Discard inherited values and use our own instead.
-PRODUCT_NAME := full_galaxynote
-PRODUCT_DEVICE := galaxynote
+PRODUCT_NAME := full_n7000
+PRODUCT_DEVICE := n7000
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-N7000
