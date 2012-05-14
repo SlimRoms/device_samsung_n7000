@@ -131,8 +131,8 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 
 TARGET_SPECIFIC_HEADER_PATH := device/samsung/n7000/overlay/include
 
-# assert
-TARGET_OTA_ASSERT_DEVICE := n7000,GT-N7000
+# assert, galaxynote needs to be removed later
+TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,GT-N7000
 
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/n7000/BoardConfigVendor.mk
