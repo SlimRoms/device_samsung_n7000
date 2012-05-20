@@ -68,7 +68,6 @@ PRODUCT_PACKAGES := \
 PRODUCT_PACKAGES += \
     lights.exynos4 \
     libhwconverter \
-    libswconverter \
     libs5pjpeg \
     libfimg
 
@@ -83,7 +82,7 @@ PRODUCT_PACKAGES += \
 # OMX
 PRODUCT_PACKAGES += \
     libstagefrighthw \
-    libcsc \
+    libseccscapi \
     libsecbasecomponent \
     libsecosal \
     libSEC_OMX_Resourcemanager \
@@ -210,7 +209,9 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 $(call inherit-product, frameworks/base/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 # Include exynos4 platform specific parts
-$(call inherit-product, hardware/samsung/exynos4/Android.mk)
+TARGET_HAL_PATH := hardware/samsung/exynos4/hal
+TARGET_OMX_PATH := hardware/samsung/exynos/multimedia/openmax
+$(call inherit-product, hardware/samsung/exynos4210.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/n7000/n7000-vendor.mk)
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4330/device-bcm.mk)
