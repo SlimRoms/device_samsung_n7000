@@ -42,8 +42,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-	device/samsung/n7000/configs/nvram_net.txt:system/etc/nvram_net.txt \
-	device/samsung/n7000/configs/nvram_mfg.txt:system/etc/nvram_mfg.txt \
 	device/samsung/n7000/configs/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_PROPERTY_OVERRIDES += \
