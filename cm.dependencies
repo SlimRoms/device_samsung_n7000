@@ -6,5 +6,9 @@
     {
         "repository": "android_packages_apps_SamsungServiceMode",
         "target_path": "packages/apps/SamsungServiceMode"
+    },
+    {
+        "repository": "android_device_samsung_galaxys2",
+        "target_path": "device/samsung/galaxys2"
     }
 ]
