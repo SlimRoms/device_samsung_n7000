@@ -140,6 +140,13 @@ BOARD_CHARGER_RES := device/samsung/galaxys2/res/charger
 # assert, galaxynote needs to be removed later
 TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,GT-N7000
 
+# Nearly all shipped N7000 devices have defective eMMC chips (VYL00M fwrev 0x19)
+# Prevent usage of ERASE commands in recovery on these boards.
+# This is redundant for our recovery since the kernel has MMC_CAP_ERASE
+# disabled for mshci.c, however it makes nightly ZIPs safer to flash
+# from kernels that still have MMC_CAP_ERASE enabled.
+BOARD_SUPPRESS_EMMC_WIPE := true
+
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/n7000/BoardConfigVendor.mk
 
