@@ -121,6 +121,9 @@
         <item>dualmic_enabled=true=false</item>
     </string-array>
 
+    <!--Boolean to enable stk functionality on Samsung phones-->
+    <bool name="config_samsung_stk">true</bool>
+
     <!-- XXXXX NOTE THE FOLLOWING RESOURCES USE THE WRONG NAMING CONVENTION.
          Please don't copy them, copy anything else. -->
 
