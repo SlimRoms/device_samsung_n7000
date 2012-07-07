@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Galaxy Note-asetukset</string>
+    <string name="app_name">Galaxy S II-asetukset</string>
 
     <string name="screen_colors_title">Värit</string>
     <string name="category_mdnie_title">Näyttö</string>
@@ -28,6 +28,11 @@
     <string name="touchkey_subcat_title">Kosketusnäppäin</string>
     <string name="touchkey_light_title_head">Ota näppäinvalot käyttöön</string>
     <string name="touchkey_light_summary_head">Valot syttyvät kun näyttö on päällä</string>
+
+    <string name="category_haptic_title">Haptinen</string>
+    <string name="vibrator_subcat_title">Värinä</string>
+    <string name="vibrator_intensity_title_head">Värinän voimakkuus</string>
+    <string name="vibrator_intensity_summary_head">Säädä värinän voimakkuutta</string>
 
     <string name="category_radio_title">Radio</string>
     <string name="hspa_title_head">HSPA</string>
