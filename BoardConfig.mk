@@ -28,7 +28,7 @@ TARGET_KERNEL_CONFIG := cyanogenmod_n7000_defconfig
 TARGET_SPECIFIC_HEADER_PATH += device/samsung/n7000/overlay/include
 EXYNOS4210_ENHANCEMENTS := true
 # assert
-TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,GT-N7000
+TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,N7000,GT-N7000
 
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/n7000/BoardConfigVendor.mk

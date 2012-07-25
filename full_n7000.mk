@@ -22,7 +22,6 @@
 #
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/samsung/n7000/n7000.mk)
 
@@ -32,9 +31,3 @@ PRODUCT_DEVICE := n7000
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-N7000
-
-# This device is xhdpi.
-PRODUCT_AAPT_CONFIG := normal xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
-PRODUCT_LOCALES += xhdpi
-

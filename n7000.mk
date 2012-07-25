@@ -22,6 +22,14 @@ LOCAL_PATH := device/samsung/n7000
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# This device is xhdpi.
+PRODUCT_AAPT_CONFIG := normal xhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_LOCALES += xhdpi
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density=320
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
