@@ -1,4 +1,4 @@
-# Copyright (C) 2009 The Android Open Source Project
+# Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,16 @@
 
 #
 # This file is the build configuration for a full Android
-# build for crespo hardware. This cleanly combines a set of
+# build for toro hardware. This cleanly combines a set of
 # device-specific aspects (drivers) with a device-agnostic
-# product configuration (apps).
+# product configuration (apps). Except for a few implementation
+# details, it only fundamentally contains two inherit-product
+# lines, full and toro, hence its name.
 #
 
 # Inherit from those products. Most specific first.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
 $(call inherit-product, device/samsung/n7000/n7000.mk)
 
 # Discard inherited values and use our own instead.
@@ -31,3 +32,9 @@ PRODUCT_DEVICE := n7000
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-N7000
+
+# This device is xhdpi.
+PRODUCT_AAPT_CONFIG := normal xhdpi
+PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_LOCALES += xhdpi
+

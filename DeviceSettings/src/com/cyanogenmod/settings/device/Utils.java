@@ -29,9 +29,9 @@ import android.content.Context;
 
 public class Utils {
 
-    private static final String TAG = "GalaxyNoteSettings_Utils";
-    private static final String TAG_READ = "GalaxyNoteSettings_Utils_Read";
-    private static final String TAG_WRITE = "GalaxyNoteSettings_Utils_Write";
+    private static final String TAG = "GalaxyS2Settings_Utils";
+    private static final String TAG_READ = "GalaxyS2Settings_Utils_Read";
+    private static final String TAG_WRITE = "GalaxyS2Settings_Utils_Write";
 
     /**
      * Write a string value to the specified file.

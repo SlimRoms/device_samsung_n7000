@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2012 The CyanogenMod Project
+# Copyright (C) 2008 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +11,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+LOCAL_PATH:= $(call my-dir)
+
+#
+# libTVOut
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/full_n700Â0.mk
+include $(CLEAR_VARS)
+LOCAL_MODULE_TAGS := optional
+LOCAL_PRELINK_MODULE := false
+
+LOCAL_SRC_FILES := \
+	SecTVOutService.cpp \
+	MessageQueue.cpp \
+        main.cpp
+# 	ISecTVOut.cpp \
+
+LOCAL_C_INCLUDES := \
+
+LOCAL_SHARED_LIBRARIES := \
+	libbinder \
+	libutils \
+	libcutils
+
+LOCAL_MODULE := TVOutDummy
+include $(BUILD_EXECUTABLE)
+
