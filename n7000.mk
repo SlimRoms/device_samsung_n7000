@@ -30,6 +30,14 @@ PRODUCT_LOCALES += xhdpi
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=320
 
+# Packages
+PRODUCT_PACKAGES += \
+    GalaxyS2Settings
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.exynos4
+
 # Keylayout
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
