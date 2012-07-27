@@ -23,7 +23,7 @@ LOCAL_PATH := device/samsung/n7000
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # This device is xhdpi.
-PRODUCT_AAPT_CONFIG := normal xhdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 PRODUCT_LOCALES += xhdpi
 
