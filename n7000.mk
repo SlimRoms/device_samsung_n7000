@@ -76,4 +76,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
     $(LOCAL_PATH)/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
+# GPS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/init.gps.rc:root/init.gps.rc \
+
 $(call inherit-product-if-exists, vendor/samsung/n7000/n7000-vendor.mk)
