@@ -30,5 +30,8 @@ EXYNOS4210_ENHANCEMENTS := true
 # assert
 TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,N7000,GT-N7000
 
+# We have a high res screen, use big font in recovery
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
+
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/n7000/BoardConfigVendor.mk
