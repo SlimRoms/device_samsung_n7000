@@ -74,6 +74,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/idc/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
     $(LOCAL_PATH)/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
     $(LOCAL_PATH)/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+    $(LOCAL_PATH)/usr/idc/sec_e-pen.idc:system/usr/idc/sec_e-pen.idc \
     $(LOCAL_PATH)/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
 # GPS
