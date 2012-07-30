@@ -36,6 +36,7 @@
 #include "ProximitySensor.h"
 #include "AkmSensor.h"
 #include "GyroSensor.h"
+#include "PressureSensor.h"
 
 /*****************************************************************************/
 
@@ -50,6 +51,7 @@
 #define SENSORS_LIGHT            (1<<ID_L)
 #define SENSORS_PROXIMITY        (1<<ID_P)
 #define SENSORS_GYROSCOPE        (1<<ID_GY)
+#define SENSORS_PRESSURE         (1<<ID_PR)
 
 #define SENSORS_ACCELERATION_HANDLE     0
 #define SENSORS_MAGNETIC_FIELD_HANDLE   1
@@ -57,6 +59,7 @@
 #define SENSORS_LIGHT_HANDLE            3
 #define SENSORS_PROXIMITY_HANDLE        4
 #define SENSORS_GYROSCOPE_HANDLE        5
+#define SENSORS_PRESSURE_HANDLE         6
 
 #define AKM_FTRACE 0
 #define AKM_DEBUG 0
@@ -90,6 +93,10 @@ static const struct sensor_t sSensorList[] = {
           "STMicroelectronics",
           1, SENSORS_GYROSCOPE_HANDLE,
           SENSOR_TYPE_GYROSCOPE, RANGE_GYRO, CONVERT_GYRO, 6.1f, 1190, { } },
+        { "BMP180 Pressure sensor",
+          "Bosch",
+          1, SENSORS_PRESSURE_HANDLE,
+          SENSOR_TYPE_PRESSURE, 1100.0f, 0.01f, 0.67f, 20000, { } },
 };
 
 
@@ -136,6 +143,7 @@ private:
         proximity       = 1,
         akm             = 2,
         gyro            = 3,
+        pressure        = 4,
         numSensorDrivers,
         numFds,
     };
@@ -158,6 +166,8 @@ private:
                 return light;
             case ID_GY:
                 return gyro;
+            case ID_PR:
+                return pressure;
         }
         return -EINVAL;
     }
@@ -186,6 +196,11 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[gyro].fd = mSensors[gyro]->getFd();
     mPollFds[gyro].events = POLLIN;
     mPollFds[gyro].revents = 0;
+
+    mSensors[pressure] = new PressureSensor();
+    mPollFds[pressure].fd = mSensors[pressure]->getFd();
+    mPollFds[pressure].events = POLLIN;
+    mPollFds[pressure].revents = 0;
 
     int wakeFds[2];
     int result = pipe(wakeFds);

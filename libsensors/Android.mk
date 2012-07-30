@@ -35,6 +35,7 @@ LOCAL_SRC_FILES := 						\
 				ProximitySensor.cpp		\
 				AkmSensor.cpp                   \
 				GyroSensor.cpp                  \
+				PressureSensor.cpp              \
                                 InputEventReader.cpp
 
 LOCAL_SHARED_LIBRARIES := liblog libcutils libdl

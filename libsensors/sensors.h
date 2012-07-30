@@ -39,6 +39,7 @@ __BEGIN_DECLS
 #define ID_L  (3)
 #define ID_P  (4)
 #define ID_GY (5)
+#define ID_PR (6)
 
 /*****************************************************************************/
 
@@ -72,6 +73,7 @@ __BEGIN_DECLS
 #define EVENT_TYPE_TEMPERATURE      ABS_THROTTLE
 #define EVENT_TYPE_STEP_COUNT       ABS_GAS
 #define EVENT_TYPE_PROXIMITY        ABS_DISTANCE
+#define EVENT_TYPE_PRESSURE         ABS_PRESSURE
 #define EVENT_TYPE_LIGHT            ABS_MISC
 
 #define EVENT_TYPE_GYRO_X           REL_RY
