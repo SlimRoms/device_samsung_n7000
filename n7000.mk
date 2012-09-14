@@ -14,13 +14,13 @@
 # limitations under the License.
 #
 
-# Include common makefile
-$(call inherit-product, device/samsung/galaxys2-common/common.mk)
-
 LOCAL_PATH := device/samsung/n7000
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+# Include common makefile
+$(call inherit-product, device/samsung/galaxys2-common/common.mk)
 
 # This device is xhdpi.
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
