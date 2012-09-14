@@ -33,4 +33,6 @@
     <string name="vibrator_subcat_title">Vibração</string>
     <string name="vibrator_intensity_title_head">Intensidade da Vibração</string>
     <string name="vibrator_intensity_summary_head">Define a intensidade da vibração</string>
+    <string name="touchkey_timeout_title_head">Tempo limite da luz de fundo</string>
+    <string name="touchkey_timeout_summary_head">Quanto tempo a luz de fundo irá ficar acesa depois do botão ser pressionado</string>
 </resources>
