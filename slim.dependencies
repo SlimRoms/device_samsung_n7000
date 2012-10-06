@@ -1,0 +1,13 @@
+[
+  {
+	"repository": "CyanogenMod/android_device_samsung_n7000",
+	"target_path": "device/samsung/n7000"
+	"branch": "jellybean"
+  },
+  {
+	"repository": "CyanogenMod/android_device_samsung_galaxys2-common",
+	"target_path": "device/samsung/galaxys2-common"
+	"branch": "jellybean"
+  }
+]
+
