@@ -1,13 +1,19 @@
 [
-  {
-	"repository": "SlimRoms/android_device_samsung_n7000",
-	"target_path": "device/samsung/n7000"
-	"branch": "jb"
-  },
-  {
-	"repository": "SlimRoms/android_device_samsung_galaxys2-common",
-	"target_path": "device/samsung/galaxys2-common"
-	"branch": "jb"
-  }
+    {
+        "repository": "CyanogenMod/android_device_samsung_galaxys2-common",
+        "target_path": "device/samsung/galaxys2-common",
+	"branch": "jellybean"
+    },
+    {
+        "repository": "CyanogenMod/android_hardware_samsung",
+        "target_path": "hardware/samsung",
+	"branch": "jellybean"
+    },
+    {
+        "repository": "TheMuppets/proprietary_vendor_samsung",
+        "target_path": "vendor/samsung",
+	"branch": "jellybean"
+    }
+
 ]
 
