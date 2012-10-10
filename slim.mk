@@ -39,9 +39,11 @@ PRODUCT_COPY_FILES += \
 	device/samsung/n7000/prebuilt/kernel/n7000/zImage:kernel \
         device/samsung/n7000/recovery.fstab:ramdisk.img \
         device/samsung/n7000/recovery.fstab:recovery/root/etc/recovery.fstab \
-	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/scsi_wait.ko:system/lib/modules/scsi_wait.ko \
+	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/scsi_wait_scan.ko:system/lib/modules/scsi_wait_scan.ko \
 	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/dhd.ko:system/lib/modules/dhd.ko \
-	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/driver.ko:system/lib/modules/driver.ko
+	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/cifs.ko:system/lib/modules/cifs.ko \
+	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/Si4709_driver.ko:system/lib/modules/Si4709_driver.ko \
+	device/samsung/n7000/prebuilt/kernel/n7000/system/lib/modules/j4fs.ko:system/lib/modules/j4fs.ko
 
 #copy 00check
 PRODUCT_COPY_FILES += \
