@@ -3,6 +3,11 @@
         "repository": "SlimRoms/device_samsung_galaxys2-common",
         "target_path": "device/samsung/galaxys2-common",
 	"branch": "jb"
+    },    
+    {
+	"repository": "CyanogenMod/android_kernel_samsung_smdk4210",
+	"target_path": "kernel/samsung/smdk4210",
+	"branch": "jellybean"
     },
     {
         "repository": "TheMuppets/proprietary_vendor_samsung",
