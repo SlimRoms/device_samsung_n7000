@@ -18,11 +18,6 @@
     <string name="touchscreen_sensitivity_title_head">Sensitividade do toque</string>
     <string name="touchscreen_sensitivity_summary_head">Define a sensitividade do toque na tela</string>
     <string name="category_sensors_title">Sensores</string>
-    <string name="gyro_subcat_title">Giroscópio</string>
-    <string name="use_gyro_calibration_title_head">Usar dados de calibração</string>
-    <string name="use_gyro_calibration_summary_head">Usar os valores de calibração do giroscópio. Fazer uma calibragem depois de selecionar isto!</string>
-    <string name="calibrate_gyro_title_head">Calibrar</string>
-    <string name="calibrate_gyro_summary_head">Coloque seu telefone em uma superfície plana, e pressione isto para calibrar</string>
     <string name="touchkey_subcat_title">Tecla sensível ao toque</string>
     <string name="touchkey_light_title_head">Ativar luz de fundo das teclas</string>
     <string name="touchkey_light_summary_head">Acender as teclas sensíveis ao toque quando a tela estiver ligada</string>
