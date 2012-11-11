@@ -20,11 +20,6 @@
     <string name="touchscreen_sensitivity_summary_head">Säädä näytön herkkyyttä</string>
 
     <string name="category_sensors_title">Sensorit</string>
-    <string name="gyro_subcat_title">Gyroskooppi</string>
-    <string name="use_gyro_calibration_title_head">Käytä kalibrointitietoja</string>
-    <string name="use_gyro_calibration_summary_head">Käytä gyroskoopin kalibrointiarvoja. Kalibroi merkattuasi tämän!</string>
-    <string name="calibrate_gyro_title_head">Kalibroi</string>
-    <string name="calibrate_gyro_summary_head">Aseta puhelin tasaiselle alustalle ja paina tätä kalibroidaksesi</string>
     <string name="touchkey_subcat_title">Kosketusnäppäin</string>
     <string name="touchkey_light_title_head">Ota näppäinvalot käyttöön</string>
     <string name="touchkey_light_summary_head">Valot syttyvät kun näyttö on päällä</string>

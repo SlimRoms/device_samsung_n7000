@@ -20,11 +20,6 @@
     <string name="touchscreen_sensitivity_summary_head">Érintőképernyő érzékenységének beállítása</string>
 
     <string name="category_sensors_title">Szenzorok</string>
-    <string name="gyro_subcat_title">Giroszkóp</string>
-    <string name="use_gyro_calibration_title_head">Kalibrálási érték használata</string>
-    <string name="use_gyro_calibration_summary_head">Kalibrálási érték használata. Érdemes újra kalibrálni, ha ez a funkció használatban van!</string>
-    <string name="calibrate_gyro_title_head">Kalibrálás</string>
-    <string name="calibrate_gyro_summary_head">Kalibráláshoz a telefont vízszintes felületre kell helyezni, és megérinteni ezt a gombot</string>
     <string name="touchkey_subcat_title">Érintőgombok</string>
     <string name="touchkey_light_title_head">Érintőgombok háttérvilágítása</string>
     <string name="touchkey_light_summary_head">Bekapcsolja az érintőgombok háttérvilágítását bekapcsolt képernyőnél</string>
