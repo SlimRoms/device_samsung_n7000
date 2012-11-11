@@ -29,6 +29,9 @@ $(call inherit-product, device/samsung/n7000/full_n7000.mk)
 # Inherit device settings
 $(call inherit-product, vendor/slim/config/common_sgs.mk)
 
+# Inherit torch settings
+$(call inherit-product, vendor/slim/config/common_ledflash.mk)
+
 #Boot Animation
 PRODUCT_COPY_FILES +=  \
     vendor/slim/prebuilt/hdpi/bootanimation.zip:system/media/bootanimation.zip
