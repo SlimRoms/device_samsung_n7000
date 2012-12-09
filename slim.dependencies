@@ -7,7 +7,7 @@
     {
         "repository": "CyanogenMod/android_kernel_samsung_smdk4210",
         "target_path": "kernel/samsung/smdk4210",
-	"branch": "jb4.2"
+	"branch": "mr1-staging"
     },
     {
         "repository": "SlimRoms/hardware_samsung",
