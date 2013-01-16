@@ -20,11 +20,17 @@ $(call inherit-product, vendor/slim/config/gsm.mk)
 # Release name
 PRODUCT_RELEASE_NAME := GT-N7000
 
-# Inherit some common SLIM stuff.
+# Inherit some common Slim stuff.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/samsung/n7000/full_n7000.mk)
+
+# Inherit Device Settings
+$(call inherit-product, vendor/slim/config/common_sgs.mk)
+
+# Inherit torch settings
+$(call inherit-product, vendor/slim/config/common_ledflash.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := n7000
