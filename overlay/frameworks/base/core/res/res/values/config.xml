@@ -142,7 +142,7 @@
     <!-- Minimum screen brightness allowed by the power manager. -->
     <integer name="config_screenBrightnessDim">29</integer>
 
-    <!-- Boolean to enable stylus gestures 
-    <bool name="config_stylusGestures">true</bool>-->
+    <!-- Boolean to enable stylus gestures -->
+    <bool name="config_stylusGestures">true</bool>
 
 </resources>
