@@ -18,7 +18,7 @@
 $(call inherit-product, vendor/slim/config/gsm.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := GT-N7000
+PRODUCT_RELEASE_NAME := n7000
 
 # Inherit some common Slim stuff.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
