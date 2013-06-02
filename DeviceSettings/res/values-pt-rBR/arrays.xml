@@ -1,19 +1,20 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
   <string-array name="mdnie_scenario_entries">
-        <item>Câmera (Padrão)</item>
+        <item>Slim (Padrão)</item>
+        <item>IU</item>
         <item>Vídeo</item>
         <item>Vídeo Quente</item>
         <item>Vídeo Frio</item>
-        <item>IU</item>
+        <item>Câmera</item>
         <item>Navegação</item>
         <item>Galeria</item>
         <item>VT</item>
   </string-array>
 
   <string-array name="mdnie_mode_entries">
-        <item>Padrão</item>
         <item>Dinâmico</item>
+        <item>Padrão (Padrão)</item>
         <item>Natural</item>
         <item>Filme</item>
   </string-array>
