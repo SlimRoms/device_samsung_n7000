@@ -32,6 +32,9 @@ $(call inherit-product, vendor/slim/config/common_sgs.mk)
 # Inherit torch settings
 $(call inherit-product, vendor/slim/config/common_ledflash.mk)
 
+PRODUCT_COPY_FILES +=  \
+    vendor/slim/prebuilt/hdpi/bootanimation.zip:system/media/bootanimation.zip
+
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := n7000
 PRODUCT_NAME := slim_n7000
