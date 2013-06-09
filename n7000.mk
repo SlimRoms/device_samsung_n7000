@@ -36,7 +36,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Packages
 PRODUCT_PACKAGES += \
-    GalaxyNoteSettings
+    DeviceSettings
 
 # Sensors
 PRODUCT_PACKAGES += \
