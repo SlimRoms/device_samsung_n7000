@@ -20,6 +20,10 @@ $(call inherit-product, vendor/slim/config/gsm.mk)
 # Release name
 PRODUCT_RELEASE_NAME := n7000
 
+# Bootanimation
+TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_WIDTH := 800
+
 # Inherit some common Slim stuff.
 $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 
@@ -31,9 +35,6 @@ $(call inherit-product, vendor/slim/config/common_sgs.mk)
 
 # Inherit torch settings
 $(call inherit-product, vendor/slim/config/common_ledflash.mk)
-
-PRODUCT_COPY_FILES +=  \
-    vendor/slim/prebuilt/hdpi/bootanimation.zip:system/media/bootanimation.zip
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := n7000
