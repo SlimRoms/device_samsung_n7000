@@ -30,9 +30,6 @@ $(call inherit-product, vendor/slim/config/common_full_phone.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/n7000/full_n7000.mk)
 
-# Inherit Device Settings
-$(call inherit-product, vendor/slim/config/common_sgs.mk)
-
 # Inherit torch settings
 $(call inherit-product, vendor/slim/config/common_ledflash.mk)
 
