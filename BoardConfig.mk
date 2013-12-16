@@ -36,5 +36,18 @@ TARGET_OTA_ASSERT_DEVICE := galaxynote,n7000,N7000,GT-N7000
 # We have a high res screen, use big font in recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 
+#TWRP
+DEVICE_RESOLUTION := 800x1280
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_INTERNAL_STORAGE_PATH := "/emmc" #needs confirmation
+TW_INTERNAL_STORAGE_MOUNT_POINT := "emmc" #needs confirmation
+TW_EXTERNAL_STORAGE_PATH := "/sdcard" #needs confirmation
+TW_EXTERNAL_STORAGE_MOUNT_POINT := "sdcard" #needs confirmation
+TW_NO_REBOOT_BOOTLOADER := true
+TW_DEFAULT_EXTERNAL_STORAGE := false
+TW_FLASH_FROM_STORAGE := true
+TW_INCLUDE_INJECTTWRP := true
+TW_HAS_DOWNLOAD_MODE := true
+
 # Use the non-open-source parts, if they're present
 -include vendor/samsung/n7000/BoardConfigVendor.mk
